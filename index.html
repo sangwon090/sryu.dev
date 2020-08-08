@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>sryu.dev</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap">
+        <link rel="stylesheet" href="./style.css">
+
+        <script>
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        </script>
+    </head>
+    <body>
+        <div class="screen">
+            <h1 class="title is-3">sryu.dev</h1>
+            <div class="links">
+                <a class="link" href="https://blog.sryu.dev"><i class="fas fa-book"></i> Blog</a>
+                <a class="link" href="https://github.com/sangwon090/"><i class="fab fa-github"></i> Github</a>
+                <a class="link" href="mailto:bdboy090@naver.com"><i class="fas fa-envelope"></i> Email</a>
+                <a class="link" href="https://t.me/sangwon090"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            </div>
+        </div>
+
+        <script src="https://kit.fontawesome.com/16b2f5b867.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+        <script>
+            var title = document.getElementsByClassName('title')[0];
+
+            var typewriter = new Typewriter(title, {
+                cursor: '|',
+                loop: true
+            });
+
+            typewriter
+                .typeString('sryu.dev')
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString('Student Developer')
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString('Hello, World!')
+                .pauseFor(1500)
+                .deleteAll()
+                .pauseFor(3000)
+                .start()
+        </script>
+    </body>
+</html>

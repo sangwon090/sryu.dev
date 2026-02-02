@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<nav class="w-full flex justify-center print:hidden">
+  <div class="w-full max-w-5xl flex justify-between items-center py-4 px-8 text-stone-500 dark:text-stone-400">
+    <div class="flex items-center">
+      <button onclick="window.history.back()" class="flex items-center justify-center w-8 h-8 -ml-2 hover:text-stone-900 dark:hover:text-stone-100 transition-colors outline-none">
+        <Icon name="lucide:chevron-left" class="w-5 h-5" />
+      </button>
+    </div>
+    
+    <div class="flex items-center gap-6">
+      <div class="relative dropdown flex items-center">
+        <button id="theme-btn" class="text-xs hover:text-stone-900 dark:hover:text-stone-100 transition-colors outline-none">
+          <Icon name="lucide:sun" class="dark:hidden w-5 h-5" />
+          <Icon name="lucide:moon" class="hidden dark:inline w-5 h-5" />
+        </button>
+        <div id="theme-menu" class="menu-content hidden absolute right-0 top-full mt-3 w-32 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 py-1 z-50 shadow-lg">
+          <button data-theme="light" class="w-full text-left px-3 py-2 text-[13px] font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-50 dark:hover:bg-stone-900">Light</button>
+          <button data-theme="dark" class="w-full text-left px-3 py-2 text-[13px] font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-50 dark:hover:bg-stone-900">Dark</button>
+          <button data-theme="system" class="w-full text-left px-3 py-2 text-[13px] font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-50 dark:hover:bg-stone-900 border-t border-stone-100 dark:border-stone-900 mt-1">System</button>
+        </div>
+      </div>
+
+      <div class="relative dropdown flex items-center">
+        <button id="lang-btn" class="text-xs font-bold hover:text-stone-900 dark:hover:text-stone-100 outline-none">
+          <Icon name="lucide:languages" class="w-5 h-5" />
+        </button>
+        <div id="lang-menu" class="menu-content hidden absolute right-0 top-full mt-3 w-28 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 py-1 z-50 shadow-lg">
+          <button data-lang="ko" class="w-full text-left px-3 py-2 text-[13px] font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-50 dark:hover:bg-stone-900">한국어</button>
+          <button data-lang="en" class="w-full text-left px-3 py-2 text-[13px] font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-50 dark:hover:bg-stone-900">English</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script is:inline>
+  function setupNavbar() {
+    const themeBtn = document.getElementById('theme-btn');
+    const themeMenu = document.getElementById('theme-menu');
+    const langBtn = document.getElementById('lang-btn');
+    const langMenu = document.getElementById('lang-menu');
+
+    if (!themeBtn || !themeMenu || !langBtn || !langMenu) return;
+
+    const toggle = (m, o) => { o.classList.add('hidden'); m.classList.toggle('hidden'); };
+    themeBtn.onclick = (e) => { e.stopPropagation(); toggle(themeMenu, langMenu); };
+    langBtn.onclick = (e) => { e.stopPropagation(); toggle(langMenu, themeMenu); };
+    document.onclick = () => { themeMenu.classList.add('hidden'); langMenu.classList.add('hidden'); };
+
+    document.querySelectorAll('[data-theme]').forEach(btn => {
+      btn.onclick = (e) => {
+        const theme = e.currentTarget.getAttribute('data-theme');
+        localStorage.setItem('theme', theme);
+        document.documentElement.classList.toggle('dark', 
+          theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        );
+        themeMenu.classList.add('hidden');
+      };
+    });
+
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.onclick = (e) => {
+        const targetLang = e.currentTarget.getAttribute('data-lang');
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        
+        if (segments[0] === 'ko' || segments[0] === 'en') {
+          segments[0] = targetLang;
+        } else {
+          segments.unshift(targetLang);
+        }
+
+        window.location.href = '/' + segments.join('/');
+      };
+    });
+  }
+
+  setupNavbar();
+  document.addEventListener('astro:after-swap', setupNavbar);
+</script>

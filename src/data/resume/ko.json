@@ -1,0 +1,109 @@
+{
+  "name": {
+    "primary": "유상원",
+    "secondary": "Sangwon Ryu"
+  },
+  "bio": "CSE Student @ Soongsil University | 현재 공군에서 군 복무 중",
+  "sections": [
+    {
+      "name": "학력",
+      "items": [
+      {
+        "name": "숭실대학교 컴퓨터학부",
+        "contents": [
+          "GPA: ?/4.5",
+          "동아리: [SCCC](https://sccc.kr/), [ASC](https://ssu-asc.kr/)"
+        ],
+        "period": "2023. 3. - 2028. 3. (예정)"
+      }
+      ]
+    },
+    {
+      "name": "경력",
+      "items": [
+        {
+          "name": "대한민국공군 – 병장",
+          "contents": [
+            "내용 추가 예정"
+          ],
+          "period": "2024. 7. 1. - 2026. 3. 31."
+        },
+        {
+          "name": "Software Maestro 14기 – 연수생",
+          "contents": [
+            "팀: 새싹들 (강대현, 유상원, 황수영)",
+            "백엔드 설계 및 개발: Kotlin, Spring Framework",
+            "서버 운영 및 CI/CD 파이프라인 구축"
+          ],
+          "period": "2023. 4. - 2023. 11."
+        }
+      ]
+    },
+    {
+      "name": "수상",
+      "items": [
+        {
+          "name": "제47회 공군 정보통신경연대회 (해킹방어부문) – 1등",
+          "description": "공군참모총장상",
+          "period": "2025. 12."
+        },
+        {
+          "name": "화이트햇 2025 콘테스트 – 1등",
+          "description": "국방부장관상 – 팀: 화잇짜 (우승해서 도티낳는 소리)",
+          "period": "2025. 11."
+        },
+        {
+          "name": "국방창업경진대회",
+          "description": "국방전직교육원장상 – 팀: ArchiFlow (구 이곳이네집이다)",
+          "period": "2025. 9."
+        },
+        {
+          "name": "공군창업경진대회",
+          "description": "공군인사참모부장상 – 팀: 이곳이네집이다",
+          "period": "2025. 6."
+        }
+      ]
+    },
+    {
+      "name": "프로젝트",
+      "items": [
+        {
+          "name": "[Haetae](https://github.com/sangwon090/haetae)",
+          "contents": [
+            "프로그래밍 언어, 근데 이제 이기종 컴퓨팅을 곁들인.",
+            "사용 기술: Rust, MLIR"
+          ],
+          "period": "개발 중"
+        },
+        {
+          "name": "[Mamba](https://github.com/sangwon090/mamba)",
+          "contents": [
+            "Python과 유사한 문법을 가진 프로그래밍 언어",
+            "사용 기술: Rust, LLVM"
+          ],
+          "period": "개발 중단"
+        }
+      ]
+    },
+    {
+      "name": "자격증",
+      "items": [
+      {
+        "name": "정보보안산업기사",
+        "description": "한국방송통신전파진흥원",
+        "period": "2025. 12."
+      },
+      {
+        "name": "정보처리산업기사",
+        "description": "한국산업인력공단",
+        "period": "2025. 12."
+      },
+      {
+        "name": "TOPCIT – 수준4 (688점)",
+        "description": "정보통신기획평가원",
+        "period": "2023. 10."
+      }
+      ]
+    }
+  ]
+}

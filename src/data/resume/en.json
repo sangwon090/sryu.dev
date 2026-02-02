@@ -1,0 +1,121 @@
+{
+  "name": {
+    "primary": "Sangwon Ryu",
+    "secondary": "유상원"
+  },
+  "bio": "CSE Student @ Soongsil University | Currently serving in the ROK Air Force",
+  "sections": [
+    {
+      "name": "Education",
+      "items": [
+        {
+          "name": "Computer Science and Engineering, Soongsil University",
+          "contents": [
+            "GPA: ?/4.5",
+            "Clubs and Societies: [SCCC](https://sccc.kr/), [ASC](https://ssu-asc.kr/)"
+          ],
+          "period": "Mar 2023 – Mar 2028 (Expected)"
+        }
+      ]
+    },
+    {
+      "name": "Experience",
+      "items": [
+        {
+          "name": "Republic of Korea Air Force – Airman",
+          "contents": [
+            "To be updated"
+          ],
+          "period": "July 2024 – Mar 2026"
+        },
+        {
+          "name": "Software Maestro 14기 – Trainee",
+          "contents": [
+            "Team: 새싹들(Daehyun Kang, Sangwon Ryu, Suyoung Hwang)",
+            "Designed and implemented backend architecture using Kotlin and Spring Framework.",
+            "Streamlined development workflows by establishing automated CI/CD pipelines."
+          ],
+          "period": "Apr 2023 – Nov 2023"
+        }
+      ]
+    },
+    {
+      "name": "Awards",
+      "items": [
+        {
+          "name": "The 47th ICT Competition (Hacking Defense Division) – First Place",
+          "contents": [
+            "Personal",
+            "Awarded by the Republic of Korea Air Force Chief of Staff"
+          ],
+          "period": "Dec 2025"
+        },
+        {
+          "name": "WhiteHat 2025 Contest – First Place",
+          "contents": [
+            "Team: 화잇짜(우승해서 도티낳는 소리)",
+            "Awarded by the Minister of National Defense, Republic of Korea"
+          ],
+          "period": "Nov 2025"
+        },
+        {
+          "name": "Military Startup Contest",
+          "contents": [
+            "Team: ArchiFlow (formerly known as 이곳이네집이다)",
+            "Awarded by the Director of the Military Outplace Training Institute"
+          ],
+          "period": "Sep 2025"
+        },
+        {
+          "name": "Air Force Startup Contest",
+          "contents": [
+            "Team: 이곳이네집이다",
+            "Awarded by the Republic of Korea Air Force Deputy Chief of Staff for Personnel"
+          ],
+          "period": "Jun 2025"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "items": [
+        {
+          "name": "[Haetae](https://github.com/sangwon090/haetae)",
+          "contents": [
+            "Yet another programming language, built for heterogeneous computing.",
+            "Skills: Rust, MLIR"
+          ],
+          "period": "WIP"
+        },
+        {
+          "name": "[Mamba](https://github.com/sangwon090/mamba)",
+          "contents": [
+            "A Python-like experimental programming language and its compiler.",
+            "Skills: Rust, LLVM"
+          ],
+          "period": "On Hold"
+        }
+      ]
+    },
+    {
+      "name": "Certifications",
+      "items": [
+        {
+          "name": "Industrial Engineer Information Security",
+          "description": "Korea Communications Agency (KCA)",
+          "period": "Dec 2025"
+        },
+        {
+          "name": "Industrial Engineer Information Processing",
+          "description": "Human Resource Development Service of Korea (HRDK)",
+          "period": "Dec 2025"
+        },
+        {
+          "name": "TOPCIT – Level 4 (Score: 688)",
+          "description": "Institute of Information & Communications Technology Planning & Evaluation (IITP)",
+          "period": "Oct 2023"
+        }
+      ]
+    }
+  ]
+}

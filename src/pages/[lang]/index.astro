@@ -1,0 +1,91 @@
+---
+import { marked } from 'marked';
+import { Icon } from 'astro-icon/components';
+import Layout from '../../layouts/Layout.astro';
+import ko from '../../data/resume/ko.json';
+import en from '../../data/resume/en.json';
+import Navbar from '../../components/Navbar.astro';
+
+export async function getStaticPaths() {
+  const locales = ['en', 'ko'];
+  return locales.map(lang => ({ params: { lang } }));
+}
+
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
+
+const { lang } = Astro.params;
+const t = (lang === 'ko') ? ko : en;
+---
+
+<Layout>
+  <Navbar />
+
+  <main class="w-full mx-auto max-w-5xl px-10 py-10">
+    <div class="prose dark:prose-invert">
+      
+      <div class="mt-5 mb-12 not-prose">
+        <div class="flex items-baseline gap-2">
+          <h1 class="text-5xl font-semibold tracking-tight m-0 leading-none">{t.name.primary}</h1>
+          <span class="text-2xl m-0 text-stone-600 dark:text-stone-300">{t.name.secondary}</span>
+        </div>
+        <p class="mt-2 text-base font-medium text-stone-500 leading-normal print:hidden">{t.bio}</p>
+        <p class="hidden print:flex mt-2 flex-wrap gap-x-3 text-base font-medium text-stone-500 leading-normal">
+          <a href="https://linkedin.com/in/sangwon090" class="inline-flex items-center gap-x-1 font-medium"><Icon aria-hidden="true" class="w-4 h-4" name="fa7-brands:linkedin-in" /> sangwon090</a>
+          <a href="mailto:me@sryu.dev" class="inline-flex items-center gap-x-1 font-medium"><Icon aria-hidden="true"class="w-4 h-4 translate-y-[1px]" name="lucide:mail" /> me@sryu.dev</a>
+          <a href="mailto:sangwon@soongsil.ac.kr" class="inline-flex items-center gap-x-1 font-medium"><Icon aria-hidden="true"class="w-4 h-4 translate-y-[1px]" name="lucide:mail" /> sangwon@soongsil.ac.kr</a>
+        </p>
+      </div>
+
+      <div class="not-prose flex flex-col gap-y-12">
+        {t.sections.map((section) => (
+          <div>
+            <h2 class="text-xl font-bold m-0 mb-4 border-b border-stone-200 dark:border-stone-800 pb-2">
+              {section.name}
+            </h2>
+            
+            <div class="flex flex-col gap-y-6">
+              {section.items.map((item) => (
+                <div class="group" key={item.name}>
+                  <div class="flex items-baseline leading-none">
+                    <h3 class="text-lg font-semibold m-0 leading-tight text-stone-900 dark:text-stone-100 [&_a]:underline" 
+                        set:html={marked.parseInline(item.name)}></h3>
+                    <p class="text-sm ml-auto m-0 leading-none text-stone-500 font-medium">{item.period}</p>
+                  </div>
+
+                  {item.description && (
+                    <p class="mt-1 m-0 text-base text-stone-600 dark:text-stone-400 leading-tight [&_a]:underline" 
+                       set:html={marked.parseInline(item.description)} />
+                  )}
+
+                  {item.contents && (
+                    <ul class="list-disc mt-1 pl-5 text-stone-600 dark:text-stone-400">
+                      {item.contents.map((content) => (
+                        <li class="leading-snug m-0 p-0 [&_a]:underline" 
+                            set:html={marked.parseInline(content)} />
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <footer class="mt-16 pt-8 not-prose print:hidden">
+        <p class="mb-1 text-sm font-medium text-stone-400 leading-normal transition-colors">
+          Find me elsewhere:
+        </p>
+        <p class="flex flex-wrap gap-x-4 text-base font-medium text-stone-400 leading-normal text-sm">
+          <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://blog.sryu.dev/"><Icon class="w-4 h-4" name="lucide:book" />Blog</a>
+          <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="mailto:me@sryu.dev"><Icon class="w-4 h-4" name="lucide:mail" /> Mail</a>
+          <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://github.com/sangwon090"><Icon class="w-4 h-4" name="fa7-brands:github" /> GitHub</a>
+          <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://linkedin.com/in/sangwon090"><Icon class="w-4 h-4" name="fa7-brands:linkedin-in" /> LinkedIn</a>
+        </p>
+      </footer>
+    </div>
+  </main>
+</Layout>

@@ -1,11 +1,36 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>유상원 · Sangwon Ryu</title>
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+        if (theme === 'dark' || (!theme && systemTheme)) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.backgroundColor = '#141413';
+        } else {
+          document.documentElement.style.backgroundColor = '#ffffff';
+        }
+        
+        const userLang = navigator.language || navigator.userLanguage;
+        const target = userLang.startsWith('ko') ? '/ko' : '/en';
 
-<Layout>
-	<Welcome />
-</Layout>
+        window.location.replace(target);
+      })();
+    </script>
+    
+    <style>
+      :root.dark { background-color: #141413; }
+      :root { background-color: #ffffff; }
+    </style>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/en" />
+    </noscript>
+	</head>
+	<body>
+	</body>
+</html>

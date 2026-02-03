@@ -46,17 +46,26 @@ import '../styles/global.css';
 
   body {
     font-family: var(--font-sans);
-    font-weight: 450;
+    font-weight: 400;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
   }
   
-  h1, h2, h3, h4, h5, p, span, a, button, div, section, article, nav, hr, .menu-content {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-duration: 0.4s;
-    transition-timing-function: ease-in-out;
+  h1, h2, h3, h4, h5, p, span, a, button, .menu-content {
+    transition: color 0.4s ease-in-out,
+                background-color 0.4s ease-in-out,
+                border-color 0.4s ease-in-out;
+
     transform: translateZ(0);
+  }
+
+  h1, h2, h3, h4, h5, p, span, a, button, .menu-content {
+    transition: color 0.4s ease,
+                background-color 0.4s ease,
+                border-color 0.4s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   .dropdown-open {

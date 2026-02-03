@@ -34,28 +34,21 @@ import '../styles/global.css';
 </html>
 
 <style is:global>
-  :root {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  html {
-    color-scheme: light dark;
+html, body {
     background-color: var(--color-page-bg);
+    transition: background-color 0.4s ease-in-out; 
   }
 
   body {
     font-family: var(--font-sans);
     font-weight: 450;
-    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+    color: var(--color-page-text);
   }
 
-  h1, h2, h3, h4, h5, section, article, nav, hr, .menu-content {
-    transition-property: color, background-color, border-color;
+  h1, h2, h3, h4, h5, p, span, a, li, button, div, section, article, nav, hr, .menu-content {
+    transition-property: color, border-color, background-color;
     transition-duration: 400ms;
     transition-timing-function: ease-in-out;
-    will-change: color, background-color, border-color;
   }
 
   .dropdown-open {

@@ -39,9 +39,12 @@ import { Icon } from 'astro-icon/components';
 <style is:global>
   html {
     color-scheme: light dark;
+    background-color: var(--color-page-bg);
   }
 
   body {
+    font-family: var(--font-sans);
+    font-weight: 450;
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
   }
 
@@ -52,7 +55,6 @@ import { Icon } from 'astro-icon/components';
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: ease-in-out;
     transition-duration: 400ms;
-    will-change: color, border-color;
   }
 
   .dropdown-open {
@@ -91,7 +93,6 @@ import { Icon } from 'astro-icon/components';
         const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
         
         document.documentElement.classList.toggle('dark', isDark);
-        void document.documentElement.offsetHeight;
 
         themeMenu.classList.remove(openClass);
       };

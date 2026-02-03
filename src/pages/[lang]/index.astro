@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
 
 import ko from '../../data/resume/ko.json';
 import en from '../../data/resume/en.json';
@@ -25,9 +26,9 @@ const t = (lang === 'ko') ? ko : en;
 <Layout>
   <Navbar />
 
-  <main class="w-full max-w-5xl mx-auto px-6 sm:px-10 py-10">
+  <main class="w-full max-w-5xl mx-auto px-6 sm:px-10 py-8">
     <div class="prose dark:prose-invert">
-      <section class="mt-5 mb-12 not-prose">
+      <section class="mt-4 sm:mt-5 mb-16 sm:mb-20 not-prose">
         <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-2.5 gap-y-1 sm:gap-y-0.5">
           <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight m-0 leading-tight">{t.name.primary}</h1>
           <span class="text-xl sm:text-2xl font-medium m-0 text-stone-700 dark:text-stone-300">{t.name.secondary}</span>
@@ -75,15 +76,5 @@ const t = (lang === 'ko') ? ko : en;
     </div>
   </main>
 
-  <footer class="w-full mx-auto max-w-5xl px-6 py-10 mt-16 pt-8 not-prose print:hidden">
-    <p class="mb-1 text-sm font-medium text-stone-400 leading-normal transition-colors">
-      Find me elsewhere:
-    </p>
-    <p class="flex flex-wrap gap-x-4 text-base font-medium text-stone-400 leading-normal text-sm">
-      <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://blog.sryu.dev/"><Icon class="w-4 h-4" name="lucide:book" />Blog</a>
-      <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="mailto:me@sryu.dev"><Icon class="w-4 h-4" name="lucide:mail" /> Mail</a>
-      <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://github.com/sangwon090"><Icon class="w-4 h-4" name="fa7-brands:github" /> GitHub</a>
-      <a class="inline-flex items-center gap-x-1 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="https://linkedin.com/in/sangwon090"><Icon class="w-4 h-4" name="fa7-brands:linkedin-in" /> LinkedIn</a>
-    </p>
-  </footer>
+  <Footer />
 </Layout>

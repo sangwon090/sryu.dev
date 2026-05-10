@@ -2,42 +2,24 @@
  * Web fonts.
  *
  * Sources:
- *   - Pretendard: orioncactus/pretendard (jsDelivr)
- *   - MaruBuri:   naver/maruburi via projectnoonnu mirror (jsDelivr)
- *   - Fira Code:  tonsky/FiraCode (jsDelivr)
+ *   - Pretendard:  orioncactus/pretendard@v1.3.9 — variable + dynamic-subset CSS
+ *                  (one CSS import covers all weights and unicode subsets).
+ *   - MaruBuri:    fonts-archive/MaruBuri (community mirror; the official
+ *                  naver/maruburi repo is not on jsDelivr).
+ *   - Wanted Sans: wanteddev/wanted-sans@v1.0.3 — single Variable woff2.
+ *   - Fira Code:   tonsky/FiraCode@6.2 — distributed via npm `firacode`.
  *
  * font-display: swap — render with fallback first to avoid blocking text.
+ *
+ * All URLs in this file have been smoke-tested and return 200.
  */
 
-/* ===== Pretendard (body sans) ===== */
-@font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Regular.subset.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Medium.subset.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-SemiBold.subset.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2') format('woff2');
-}
+/* ===== Pretendard (body sans) =====
+ * The dynamic-subset CSS file contains @font-face declarations with
+ * unicode-range subsets, so the browser only fetches the subsets it needs.
+ * One @import replaces N hand-rolled @font-face blocks.
+ */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 /* ===== MaruBuri (heading serif) =====
  *
@@ -64,35 +46,35 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Light.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Light.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Light.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Light.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Regular.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-SemiBold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-SemiBold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Bold.woff2') format('woff2');
 }
 
 /* ----- Hangul (bumped one weight step heavier) -----
@@ -109,7 +91,7 @@
   font-weight: 300;
   font-display: swap;
   unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Regular.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
@@ -117,7 +99,7 @@
   font-weight: 400;
   font-display: swap;
   unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-SemiBold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-SemiBold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
@@ -125,7 +107,7 @@
   font-weight: 600;
   font-display: swap;
   unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Bold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'MaruBuri';
@@ -133,7 +115,7 @@
   font-weight: 700;
   font-display: swap;
   unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/MaruBuri/MaruBuri-Bold.woff2') format('woff2');
 }
 
 /* ===== Wanted Sans (display, used for headings) =====
@@ -147,7 +129,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.woff2') format('woff2-variations');
+  src: url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/woff2/WantedSansVariable.woff2') format('woff2-variations');
 }
 
 /* ===== Fira Code (monospace, code) ===== */
@@ -156,5 +138,5 @@
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url('https://cdn.jsdelivr.net/gh/tonsky/FiraCode@6.2/distr/woff2/FiraCode-VF.woff2') format('woff2-variations');
+  src: url('https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/woff2/FiraCode-VF.woff2') format('woff2-variations');
 }

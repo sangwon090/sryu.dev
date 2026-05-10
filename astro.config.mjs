@@ -9,7 +9,7 @@ import rehypeSlug from 'rehype-slug';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.sryu.dev',
+  site: 'https://sryu.dev',
   trailingSlash: 'ignore',
   build: {
     format: 'directory',

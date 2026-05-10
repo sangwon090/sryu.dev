@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import Pagination from '../components/Pagination.astro';
+import { getPostsByLocale, POSTS_PAGE_SIZE } from '../utils/posts';
+import { t, type Locale } from '../i18n/ui';
+import { localizedPath } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  /** 1-based page index. */
+  page: number;
+}
+
+const { locale, page } = Astro.props;
+const allPosts = await getPostsByLocale(locale);
+const total = Math.max(1, Math.ceil(allPosts.length / POSTS_PAGE_SIZE));
+const start = (page - 1) * POSTS_PAGE_SIZE;
+const posts = allPosts.slice(start, start + POSTS_PAGE_SIZE);
+
+const prevUrl =
+  page === 1
+    ? undefined
+    : page === 2
+      ? localizedPath(locale, 'posts/')
+      : localizedPath(locale, `posts/page/${page - 1}/`);
+const nextUrl =
+  page < total ? localizedPath(locale, `posts/page/${page + 1}/`) : undefined;
+
+const titleSuffix = page > 1 ? ` · ${page}` : '';
+---
+
+<BaseLayout locale={locale} title={`${t(locale, 'posts.title')}${titleSuffix}`}>
+  <section class="container posts-page">
+    <header class="page-head">
+      <h1>{t(locale, 'posts.title')}</h1>
+    </header>
+
+    <PostList posts={posts} locale={locale} />
+
+    <Pagination
+      prevUrl={prevUrl}
+      nextUrl={nextUrl}
+      current={page}
+      total={total}
+      locale={locale}
+    />
+  </section>
+</BaseLayout>
+
+<style>
+  .posts-page { max-width: var(--width-prose); }
+  .page-head { margin-bottom: var(--space-6); }
+  .page-head h1 { margin: 0; font-size: var(--fs-2xl); }
+</style>

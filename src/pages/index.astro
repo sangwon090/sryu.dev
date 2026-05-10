@@ -1,0 +1,42 @@
+---
+/**
+ * Root entry — detect the visitor's language and redirect to /en/ or /ko/.
+ *
+ * This is a static page. Crawlers fall back to the meta-refresh below;
+ * real users get the JS-driven redirect that respects navigator.language.
+ */
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sryu.dev</title>
+    <meta name="description" content="Notes on systems, security, and software engineering." />
+    <link rel="canonical" href="https://blog.sryu.dev/en/" />
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('lang');
+          var target = stored;
+          if (!target) {
+            var nav = (navigator.language || 'en').toLowerCase();
+            target = nav.startsWith('ko') ? 'ko' : 'en';
+          }
+          var qs = window.location.search || '';
+          var hash = window.location.hash || '';
+          window.location.replace('/' + target + '/' + qs + hash);
+        } catch (e) {
+          window.location.replace('/en/');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p style="font-family: system-ui, sans-serif; padding: 2rem;">
+      Redirecting…
+    </p>
+  </body>
+</html>

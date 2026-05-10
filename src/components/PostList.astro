@@ -1,0 +1,181 @@
+---
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+import { formatDate } from '../i18n/utils';
+import { postPath, type Post } from '../utils/posts';
+import { localizedPath } from '../i18n/utils';
+
+interface Props {
+  posts: Post[];
+  locale: Locale;
+  /** Show full date or year only. Defaults to full date. */
+  dateFormat?: 'date' | 'year';
+}
+
+const { posts, locale, dateFormat = 'date' } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="empty">{t(locale, 'posts.empty')}</p>
+  ) : (
+    <ol class="post-list" role="list">
+      {posts.map((post) => {
+        const dateText =
+          dateFormat === 'year'
+            ? String(post.data.date.getUTCFullYear())
+            : formatDate(post.data.date, locale);
+        return (
+          <li class="post-item">
+            <article>
+              <header class="post-head">
+                <time class="post-date" datetime={post.data.date.toISOString()}>
+                  {dateText}
+                </time>
+                <div class="title-row">
+                  <h2 class="post-title">
+                    <a href={postPath(post)}>{post.data.title}</a>
+                  </h2>
+                  {post.data.series && (
+                    <span class="series">{post.data.series}</span>
+                  )}
+                </div>
+              </header>
+
+              {post.data.description && (
+                <p class="post-desc">{post.data.description}</p>
+              )}
+
+              {post.data.tags.length > 0 && (
+                <div class="post-meta">
+                  <ul class="tags" role="list">
+                    {post.data.tags.map((tag) => (
+                      <li>
+                        <a
+                          class="tag"
+                          href={localizedPath(locale, `tags/${encodeURIComponent(tag)}/`)}
+                        >
+                          #{tag}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </article>
+          </li>
+        );
+      })}
+    </ol>
+  )
+}
+
+<style>
+  .empty {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-item {
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-item:last-child {
+    border-bottom: 0;
+  }
+
+  .post-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-subtle);
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .post-title {
+    margin: 0;
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .post-title a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .post-title a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-soft);
+    text-underline-offset: 4px;
+  }
+
+  .series {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    align-self: baseline;
+    white-space: nowrap;
+  }
+
+  .post-desc {
+    margin: var(--space-2) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+  }
+
+  .post-meta {
+    margin-top: var(--space-3);
+    font-size: var(--fs-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tag {
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+  }
+
+  .tag:hover {
+    color: var(--color-accent);
+  }
+</style>

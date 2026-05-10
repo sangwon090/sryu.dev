@@ -12,12 +12,6 @@ Core design direction:
 - The site should feel like a carefully maintained personal technical library, not a marketing website.
 - The reading experience is more important than visual decoration.
 
-Reference mood:
-- Take inspiration from personal technical blogs and archive-style sites such as:
-  - https://evan-moon.github.io/
-  - https://kylekukshtel.com/
-- Do not copy their layouts directly. Use them only as references for restraint, readability, and personal-library atmosphere.
-
 Technology:
 - Use Astro.js.
 - Prefer static site generation so the blog can be deployed to GitHub Pages or similar static hosting.
@@ -218,7 +212,7 @@ Before implementation, briefly state the design assumptions you made. Then proce
 
 Branding and identity:
 - The blog title should be `sryu.dev`.
-- Use the subtitle: `Notes on systems, security, and software engineering.`
+- Use the subtitle: `Notes on software engineering, compilers and cybersecurity.`
 - The site should feel like a personal engineering journal and technical library.
 - Avoid using a generic title such as `Sangwon's Blog` as the primary brand.
 - `blog.sryu.dev` may be used as a deployment domain, but not as the visible site title unless necessary.
@@ -258,9 +252,9 @@ Machine translation notice:
 - Machine-translated articles must show a subtle but visible notice near the top of the article.
 - The notice should not look alarming, but it must be clear.
 - English notice text:
-  `This article was machine-translated from the original version and has not yet been manually reviewed. Technical terms or nuances may be inaccurate.`
+  `This article was machine-translated from the original version. Technical terms or nuances may be inaccurate.`
 - Korean notice text:
-  `이 글은 원문을 기계 번역한 버전이며, 아직 사람이 검수하지 않았습니다. 기술 용어나 뉘앙스가 부정확할 수 있습니다.`
+  `이 글은 원문을 기계 번역한 버전입니다. 기술 용어나 뉘앙스가 부정확할 수 있습니다.`
 - Include a link to the original version when available.
 - Style the notice using restrained borders and muted accent colors.
 - Prefer `noindex, follow` for machine-translated pages until they are manually reviewed.

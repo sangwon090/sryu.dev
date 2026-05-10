@@ -1,0 +1,73 @@
+---
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+
+interface Props {
+  prevUrl?: string;
+  nextUrl?: string;
+  current: number;
+  total: number;
+  locale: Locale;
+}
+
+const { prevUrl, nextUrl, current, total, locale } = Astro.props;
+---
+
+{
+  total > 1 && (
+    <nav class="pagination" aria-label="Pagination">
+      <div class="pagination-prev">
+        {prevUrl ? (
+          <a href={prevUrl} rel="prev">{t(locale, 'pagination.prev')}</a>
+        ) : (
+          <span class="muted">{t(locale, 'pagination.prev')}</span>
+        )}
+      </div>
+      <div class="pagination-info">
+        {t(locale, 'posts.page')} {current} / {total}
+      </div>
+      <div class="pagination-next">
+        {nextUrl ? (
+          <a href={nextUrl} rel="next">{t(locale, 'pagination.next')}</a>
+        ) : (
+          <span class="muted">{t(locale, 'pagination.next')}</span>
+        )}
+      </div>
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+  }
+
+  .pagination-prev { text-align: left; }
+  .pagination-next { text-align: right; }
+  .pagination-info {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-subtle);
+  }
+
+  .pagination a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .pagination a:hover {
+    color: var(--color-accent);
+  }
+
+  .muted {
+    color: var(--color-text-subtle);
+  }
+</style>

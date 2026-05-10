@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import { getPostsByLocale } from '../utils/posts';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  tag: string;
+}
+
+const { locale, tag } = Astro.props;
+const allPosts = await getPostsByLocale(locale);
+const posts = allPosts.filter((p) => p.data.tags.includes(tag));
+---
+
+<BaseLayout locale={locale} title={`#${tag}`}>
+  <section class="container tag-page">
+    <header class="page-head">
+      <p class="kicker">{t(locale, 'tags.taggedWith')}</p>
+      <h1>#{tag}</h1>
+    </header>
+
+    <PostList posts={posts} locale={locale} />
+  </section>
+</BaseLayout>
+
+<style>
+  .tag-page { max-width: var(--width-prose); }
+  .page-head { margin-bottom: var(--space-6); }
+
+  .kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-subtle);
+  }
+
+  .page-head h1 {
+    margin: var(--space-1) 0 0;
+    font-size: var(--fs-2xl);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: -0.005em;
+  }
+</style>

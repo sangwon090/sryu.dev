@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+---
+
+<BaseLayout locale={locale} title={t(locale, 'about.title')}>
+  <article class="container about-page">
+    <header class="page-head">
+      <h1>{t(locale, 'about.title')}</h1>
+    </header>
+
+    <div class="article-content">
+      {locale === 'ko' ? (
+        <>
+          <p>컴퓨터를 전공하고 있는 학생입니다. 모든 일에 "왜?"라는 궁금증을 갖고 살아갑니다.</p>
+          <p>
+            화면에 보이는 프로그램이 어떻게 만들어지는지 궁금해 프로그래밍을 배웠고,
+            프로그램이 실제로 어떻게 동작하는지 궁금해 컴퓨터 시스템을 공부했습니다.
+            소스코드가 기계어로 번역되는 과정이 궁금해 컴파일러를 공부했고,
+            그 과정에서 자연스럽게 컴파일러와 정보보안에 관심을 갖게 되었습니다.
+          </p>
+          <p>
+            요즘은 모니터를 조금 덜 바라보고, 세상을 온몸으로 느껴보려 노력합니다.
+            화면에 <code>hello, world</code>를 출력하면서도 정작 세상에는 무심했던 것 같기 때문입니다.
+          </p>
+          <p>
+            이곳에는 컴퓨터를 공부하며 배운 것들과, 세상을 살아가며 느낀 것들을 기록하려고 합니다.
+          </p>
+        </>
+      ) : (
+        <>
+          <p>I am a student majoring in computer science. I live with a constant curiosity about “why?” in everything.</p>
+          <p>
+            I learned programming because I was curious about how the programs I see on screen are made.
+            As I learned programming, I became curious about how programs actually work, so I studied computer systems.
+            I then became curious about how source code, which is ultimately just text, is translated into machine code,
+            and that led me to study compilers. Through that process, I naturally developed an interest in compilers and information security.
+          </p>
+          <p>
+            These days, I try to spend a little less time looking at monitors and experience the world with my whole body.
+            Even though I kept printing <code>hello, world</code> on the screen, I realized I may have been rather indifferent to the world itself.
+          </p>
+          <p>
+            Here, I plan to record the things I learn while studying computer science, as well as the thoughts I gather while living through the world.
+          </p>
+        </>
+      )}
+
+      <hr />
+
+      <h3>PGP</h3>
+        Fingerprint: <code>4C96 EEF9 5F7D 32D8 D9BA 713C 606B B439 2A7B C9BE</code><br />
+        <pre>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEaesqzxYJKwYBBAHaRw8BAQdAK3NS8s/ZJ++X9ERDsfiKtckmEA0GZh61CiDd
+TE7pwaq0GVNhbmd3b24gUnl1IDxtZUBzcnl1LmRldj6ImQQTFgoAQRYhBEyW7vlf
+fTLY2bpxPGBrtDkqe8m+BQJp6yrPAhsDBQkB4TOABQsJCAcCAiICBhUKCQgLAgQW
+AgMBAh4HAheAAAoJEGBrtDkqe8m+8QEBAKtwp+iTERjIucPoFXsV86caFQxxlQHT
+SyfmVeraVST6AP9PWyZlUTTYm9sC/aBJkM9dqobpbyhiz0VvPLa18edXBLQhU2Fu
+Z3dvbiBSeXUgPGJkYm95NDY2NUBnbWFpbC5jb20+iJkEExYKAEEWIQRMlu75X30y
+2Nm6cTxga7Q5KnvJvgUCaesr9QIbAwUJAeEzgAULCQgHAgIiAgYVCgkICwIEFgID
+AQIeBwIXgAAKCRBga7Q5KnvJvkxaAP4v+2+i0oDGoGPK88mIbPiHKpB8zjiq3bc3
+H9a8MFx/GQD/dYRTCNfeS3xaogVPLDLUSdayGryS/S7ZmcAJxiJ1xwK4OARp6yrP
+EgorBgEEAZdVAQUBAQdAH7+p5LlRuReQ7su97dKlHK9bIaR3n2v9LeTgc5CsQksD
+AQgHiH4EGBYKACYWIQRMlu75X30y2Nm6cTxga7Q5KnvJvgUCaesqzwIbDAUJAeEz
+gAAKCRBga7Q5KnvJvpK+AQC74vjV0qMOrZNLbsh09dwdsNoksVNj9HYpJZZz1wVP
+0wD/SfF9NHW/EC00g8RL6lIjhlEAq7GedHuhkA1qJ8j0Kwc=
+=+S5U
+-----END PGP PUBLIC KEY BLOCK-----
+        </pre>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .about-page {
+    max-width: var(--width-prose);
+  }
+
+  .page-head { margin-bottom: var(--space-3); }
+
+  .page-head h1 { margin: 0; font-size: var(--fs-2xl); }
+</style>

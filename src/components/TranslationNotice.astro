@@ -1,0 +1,54 @@
+---
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  originalUrl?: string;
+}
+
+const { locale, originalUrl } = Astro.props;
+---
+
+<aside class="notice" role="note">
+  <p>
+    <strong class="label">{t(locale, 'translation.machine')}</strong>
+    <span class="body"> — {t(locale, 'translation.machineNotice')}</span>
+    {originalUrl && (
+      <>
+        {' '}
+        <a href={originalUrl}>{t(locale, 'article.viewOriginal')} →</a>
+      </>
+    )}
+  </p>
+</aside>
+
+<style>
+  .notice {
+    margin: var(--space-5) 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-normal);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .notice p {
+    margin: 0;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .body {
+    color: var(--color-text-muted);
+  }
+</style>

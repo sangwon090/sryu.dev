@@ -1,0 +1,406 @@
+@import './tokens.css';
+@import './fonts.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Reserve scrollbar space so layout doesn't shift between short and long pages. */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/*
+ * During an explicit theme change we suppress every transition for one frame
+ * so each element snaps to the new colors together. Without this, elements
+ * with different transition durations finish at different times and the
+ * theme switch looks uneven.
+ */
+.theme-transition-suppressed,
+.theme-transition-suppressed *,
+.theme-transition-suppressed *::before,
+.theme-transition-suppressed *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+/* Reduced motion: disable all transitions/animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+::selection {
+  background: var(--color-selection);
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease);
+}
+
+a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+p {
+  line-height: var(--lh-relaxed);
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-feature-settings: 'liga' 0;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-7) 0;
+}
+
+/* ----- Utility layout helpers ----- */
+.container {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.container-wide {
+  width: 100%;
+  max-width: var(--width-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.prose {
+  max-width: var(--width-prose);
+  margin-inline: auto;
+}
+
+/* ----- Skip link for accessibility ----- */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  transform: translateY(var(--space-2));
+  outline: 2px solid var(--color-accent);
+}
+
+/* ----- Article (markdown content) styles ----- */
+.article-content {
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  /* CJK-friendly wrapping: keep Korean words intact, and only break a long
+   * token (URL, English compound, etc.) when it would otherwise overflow. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.article-content > * + * {
+  margin-top: 1.125rem;
+}
+
+/* No top margin for the first block — keeps the gap from the page heading
+ * (or hr) tight. */
+.article-content > :first-child {
+  margin-top: 0;
+}
+
+.article-content h2 {
+  font-size: var(--fs-2xl);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-3);
+  scroll-margin-top: 5rem;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-content h3 {
+  font-size: var(--fs-xl);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+  scroll-margin-top: 5rem;
+}
+
+.article-content h4 {
+  font-size: var(--fs-lg);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+  scroll-margin-top: 5rem;
+}
+
+/* Beat the bare `p { line-height: var(--lh-relaxed) }` rule above so that
+ * article body paragraphs use the article-content's tighter line-height.
+ * Do NOT add `margin: 0` here — the `> * + *` rule (lower specificity than
+ * `.article-content p`) would lose the cascade and inter-paragraph spacing
+ * would collapse to zero. Browser default <p> margins are fine; the `> * + *`
+ * rule wins for direct-child top margins via margin-collapse. */
+.article-content p {
+  line-height: var(--lh-normal);
+}
+
+.article-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.article-content a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: var(--space-5);
+  line-height: var(--lh-normal);
+}
+
+.article-content li + li {
+  margin-top: var(--space-1);
+}
+
+/* Crossing a hierarchy boundary. Entering a nested list keeps a modest gap
+ * (the child still feels attached to its parent item), while returning to
+ * the parent level after one is given a clearly larger gap so the next
+ * top-level item reads as a fresh section. */
+.article-content li > ul,
+.article-content li > ol {
+  margin-top: var(--space-3);
+}
+
+.article-content li:has(> ul) + li,
+.article-content li:has(> ol) + li {
+  margin-top: var(--space-5);
+}
+
+.article-content blockquote {
+  margin: 0;
+  padding: var(--space-1) var(--space-5);
+  border-left: 2px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.article-content blockquote p + p {
+  margin-top: var(--space-3);
+}
+
+/* Inline code */
+.article-content :not(pre) > code {
+  font-size: 0.92em;
+  padding: 0.12em 0.38em;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+}
+
+/* Code block container — Shiki applies its own colors via inline style. */
+.article-content pre {
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  background: var(--color-surface-2);
+  /* Force a non-overlay scrollbar so it stays visible (esp. on macOS,
+   * where the system overlay scrollbar can disappear entirely). */
+  scrollbar-width: thin;                       /* Firefox */
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+.article-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.article-content pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.article-content pre::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+
+.article-content pre::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-subtle);
+}
+
+.article-content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Shiki dual-theme: hide the inactive theme. Astro generates two stylesheets:
+   one for the light theme (default style attrs) and one with .shiki-dark class. */
+[data-theme='dark'] .article-content pre,
+[data-theme='dark'] .article-content pre span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .article-content pre,
+  :root:not([data-theme]) .article-content pre span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
+
+/* Tables */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  display: block;
+  overflow-x: auto;
+}
+
+.article-content thead {
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.article-content th,
+.article-content td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-content th {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Footnotes */
+.article-content .footnotes {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.article-content .footnotes ol {
+  padding-left: var(--space-5);
+}
+
+.article-content sup a {
+  text-decoration: none;
+  color: var(--color-accent);
+}
+
+/* KaTeX */
+.article-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-2) 0;
+}
+
+/* Images and figures */
+.article-content img {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* When an image isn't wrapped in <p> (e.g. inline inside a list item) it
+ * sits flush against neighbouring text. Give it explicit breathing room. */
+.article-content :not(p) > img {
+  margin-block: var(--space-3);
+}
+
+.article-content figure {
+  margin: 0;
+}
+
+.article-content figcaption {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: var(--space-2);
+}

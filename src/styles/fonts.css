@@ -1,0 +1,160 @@
+/*
+ * Web fonts.
+ *
+ * Sources:
+ *   - Pretendard: orioncactus/pretendard (jsDelivr)
+ *   - MaruBuri:   naver/maruburi via projectnoonnu mirror (jsDelivr)
+ *   - Fira Code:  tonsky/FiraCode (jsDelivr)
+ *
+ * font-display: swap — render with fallback first to avoid blocking text.
+ */
+
+/* ===== Pretendard (body sans) ===== */
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Regular.subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Medium.subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-SemiBold.subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2-subset/Pretendard-Bold.subset.woff2') format('woff2');
+}
+
+/* ===== MaruBuri (heading serif) =====
+ *
+ * MaruBuri's Hangul reads lighter than its Latin at the same nominal weight.
+ * We close the gap from both sides via unicode-range:
+ *   - Hangul is mapped one step *heavier* than what CSS requests.
+ *   - Latin  is mapped one step *lighter* than what CSS requests.
+ *
+ * Effective behaviour (when CSS asks for `font-weight: 600`):
+ *   Latin  → MaruBuri-Regular
+ *   Hangul → MaruBuri-Bold
+ *
+ * Browsers pick the @font-face whose unicode-range most specifically matches
+ * each glyph, so the Hangul declarations win for Hangul codepoints and the
+ * default declarations win for everything else.
+ *
+ * Navbar brand keeps its original look by requesting one weight step heavier
+ * (e.g. 700 instead of 600) — see Header.astro.
+ */
+
+/* ----- Latin / default (one step lighter than nominal) ----- */
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+}
+
+/* ----- Hangul (bumped one weight step heavier) -----
+ * Ranges:
+ *   U+1100-11FF   Hangul Jamo
+ *   U+3130-318F   Hangul Compatibility Jamo
+ *   U+A960-A97F   Hangul Jamo Extended-A
+ *   U+AC00-D7A3   Hangul Syllables
+ *   U+D7B0-D7FF   Hangul Jamo Extended-B
+ */
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MaruBuri-Bold.woff2') format('woff2');
+}
+
+/* ===== Wanted Sans (display, used for headings) =====
+ *
+ * One Variable woff2 covers all weights, so we pay a single HTTP request to
+ * cover every heading on the site. font-display: swap renders fallback text
+ * (Pretendard) immediately and swaps when Wanted Sans loads.
+ */
+@font-face {
+  font-family: 'Wanted Sans';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.woff2') format('woff2-variations');
+}
+
+/* ===== Fira Code (monospace, code) ===== */
+@font-face {
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/tonsky/FiraCode@6.2/distr/woff2/FiraCode-VF.woff2') format('woff2-variations');
+}

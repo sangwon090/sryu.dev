@@ -1,0 +1,92 @@
+---
+/**
+ * utteranc.es-backed comments. Each post maps to a GitHub issue.
+ *
+ *  - Default: issue-term=pathname → utterances auto-creates an issue named
+ *    after the URL when the first comment is posted.
+ *  - With `issueNumber` prop: pin to an existing issue (used for legacy posts
+ *    whose comments live on the old blog's issue tracker).
+ */
+
+interface Props {
+  /** Pin to an existing GitHub issue number. */
+  issueNumber?: number;
+}
+
+const { issueNumber } = Astro.props;
+
+// The GitHub repo where comments live. Change here to point at a different
+// repo (e.g. a dedicated comments-only repo).
+const REPO = 'sangwon090/blog.sryu.dev';
+---
+
+<section class="comments" aria-label="Comments">
+  <div
+    class="comments-mount"
+    data-utterances-mount
+    data-repo={REPO}
+    data-issue-number={issueNumber !== undefined ? String(issueNumber) : undefined}
+  ></div>
+</section>
+
+<script>
+  const UTTERANCES_ORIGIN = 'https://utteranc.es';
+
+  function resolveTheme(): string {
+    const attr = document.documentElement.getAttribute('data-theme');
+    return attr === 'dark' ? 'github-dark' : 'github-light';
+  }
+
+  function loadUtterances() {
+    const mount = document.querySelector<HTMLElement>('[data-utterances-mount]');
+    if (!mount || mount.dataset.loaded === 'true') return;
+    mount.dataset.loaded = 'true';
+
+    const repo = mount.dataset.repo;
+    if (!repo) return;
+    const issueNumber = mount.dataset.issueNumber;
+
+    const script = document.createElement('script');
+    script.src = `${UTTERANCES_ORIGIN}/client.js`;
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('repo', repo);
+    script.setAttribute('theme', resolveTheme());
+    script.setAttribute('label', 'comment');
+    if (issueNumber) {
+      script.setAttribute('issue-number', issueNumber);
+    } else {
+      script.setAttribute('issue-term', 'pathname');
+    }
+    mount.appendChild(script);
+  }
+
+  loadUtterances();
+
+  // Keep utterances' theme in sync with the blog's manual toggle.
+  const observer = new MutationObserver(() => {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.utterances-frame');
+    if (!iframe || !iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(
+      { type: 'set-theme', theme: resolveTheme() },
+      UTTERANCES_ORIGIN,
+    );
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+</script>
+
+<style>
+  .comments {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* utterances inserts an iframe inside the mount node — let it use full width. */
+  .comments-mount :global(.utterances) {
+    max-width: none;
+  }
+</style>

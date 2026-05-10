@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import TagDetailView from '../../../views/TagDetailView.astro';
+import { getPostsByLocale } from '../../../utils/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPostsByLocale('ko');
+  const tags = new Set<string>();
+  for (const p of posts) for (const t of p.data.tags) tags.add(t);
+  return Array.from(tags).map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+};
+
+interface Props { tag: string; }
+const { tag } = Astro.props as Props;
+---
+<TagDetailView locale="ko" tag={tag} />

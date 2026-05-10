@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import { getPostsByLocale, tagCounts } from '../utils/posts';
+import { localizedPath } from '../i18n/utils';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+const allPosts = await getPostsByLocale(locale);
+const recent = allPosts.slice(0, 10);
+const tags = Array.from(tagCounts(allPosts).entries())
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 10);
+---
+
+<BaseLayout locale={locale}>
+  <section class="container intro" aria-labelledby="intro-heading">
+    <h1 id="intro-heading" class="intro-title">
+      {t(locale, 'site.title')}
+    </h1>
+    <p class="intro-subtitle">{t(locale, 'site.subtitle')}</p>
+  </section>
+
+  <section class="container section" aria-labelledby="recent-heading">
+    <header class="section-head">
+      <h2 id="recent-heading" class="section-title">
+        {t(locale, 'home.recent')}
+      </h2>
+      <a class="section-link" href={localizedPath(locale, 'posts/')}>
+        {t(locale, 'home.viewAll')}
+      </a>
+    </header>
+    <PostList posts={recent} locale={locale} />
+  </section>
+
+  {
+    tags.length > 0 && (
+      <section class="container section" aria-labelledby="tags-heading">
+        <header class="section-head">
+          <h2 id="tags-heading" class="section-title">
+            {t(locale, 'home.selectedTags')}
+          </h2>
+          <a class="section-link" href={localizedPath(locale, 'tags/')}>
+            {t(locale, 'nav.tags')} →
+          </a>
+        </header>
+        <ul class="tag-cloud" role="list">
+          {tags.map(([tag, count]) => (
+            <li>
+              <a href={localizedPath(locale, `tags/${encodeURIComponent(tag)}/`)}>
+                #{tag} <span class="count">{count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-7);
+    max-width: var(--width-prose);
+  }
+
+  /* Home title keeps the serif look. */
+  .intro-title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--fs-3xl);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .intro-subtitle {
+    margin: var(--space-2) 0 0;
+    font-size: var(--fs-md);
+    color: var(--color-text-muted);
+  }
+
+  .section {
+    padding-top: var(--space-10);
+    max-width: var(--width-prose);
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: var(--fs-sm);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    color: var(--color-text-subtle);
+  }
+
+  .section-link {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .section-link:hover { color: var(--color-accent); }
+
+  .tag-cloud {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+  }
+
+  .tag-cloud a {
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .tag-cloud a:hover { color: var(--color-accent); }
+
+  .tag-cloud .count {
+    color: var(--color-text-subtle);
+    font-size: var(--fs-xs);
+    margin-left: 0.2rem;
+  }
+</style>

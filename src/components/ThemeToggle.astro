@@ -1,0 +1,345 @@
+---
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<div class="theme-control" data-theme-control>
+  <button
+    type="button"
+    class="theme-trigger"
+    aria-label={t(locale, 'theme.toggle')}
+    aria-haspopup="menu"
+    aria-expanded="false"
+    data-theme-trigger
+  >
+    <svg
+      class="icon icon-sun"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+    </svg>
+    <svg
+      class="icon icon-moon"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <ul class="theme-menu" role="menu" hidden data-theme-menu>
+    <li role="none">
+      <button
+        type="button"
+        role="menuitemradio"
+        class="theme-option"
+        data-theme-set="light"
+      >
+        <svg
+          class="opt-icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+        <span>{t(locale, 'theme.light')}</span>
+      </button>
+    </li>
+    <li role="none">
+      <button
+        type="button"
+        role="menuitemradio"
+        class="theme-option"
+        data-theme-set="dark"
+      >
+        <svg
+          class="opt-icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <span>{t(locale, 'theme.dark')}</span>
+      </button>
+    </li>
+    <li role="none">
+      <button
+        type="button"
+        role="menuitemradio"
+        class="theme-option"
+        data-theme-set="system"
+      >
+        <svg
+          class="opt-icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="3" y="4" width="18" height="13" rx="1.5"></rect>
+          <path d="M8 20h8M12 17v3"></path>
+        </svg>
+        <span>{t(locale, 'theme.system')}</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<script>
+  type Selection = 'light' | 'dark' | 'system';
+
+  const root = document.documentElement;
+  const control = document.querySelector<HTMLElement>('[data-theme-control]');
+  const trigger = document.querySelector<HTMLButtonElement>('[data-theme-trigger]');
+  const menu = document.querySelector<HTMLUListElement>('[data-theme-menu]');
+  const options = document.querySelectorAll<HTMLButtonElement>('[data-theme-set]');
+
+  function getSelection(): Selection {
+    try {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'light' || stored === 'dark') return stored;
+    } catch {
+      /* localStorage unavailable */
+    }
+    return 'system';
+  }
+
+  function resolveSystem(): 'light' | 'dark' {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  /**
+   * Apply a theme selection. Suppresses transitions for one frame so every
+   * element snaps to the new colors together — without this, elements with
+   * different transition durations finish at different times.
+   */
+  function applySelection(selection: Selection) {
+    root.classList.add('theme-transition-suppressed');
+
+    const resolved = selection === 'system' ? resolveSystem() : selection;
+    root.setAttribute('data-theme', resolved);
+
+    try {
+      if (selection === 'system') localStorage.removeItem('theme');
+      else localStorage.setItem('theme', selection);
+    } catch {
+      /* ignore */
+    }
+
+    // Force reflow so the class takes effect, then remove it next frame.
+    void root.offsetHeight;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        root.classList.remove('theme-transition-suppressed');
+      });
+    });
+
+    updateMenuState();
+  }
+
+  function updateMenuState() {
+    const current = getSelection();
+    for (const opt of options) {
+      const isCurrent = opt.dataset.themeSet === current;
+      opt.setAttribute('aria-checked', String(isCurrent));
+      opt.classList.toggle('is-active', isCurrent);
+    }
+  }
+
+  function openMenu() {
+    if (!menu || !trigger) return;
+    menu.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMenu() {
+    if (!menu || !trigger) return;
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  function isMenuOpen(): boolean {
+    return !!menu && !menu.hidden;
+  }
+
+  if (trigger && menu && control) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isMenuOpen()) closeMenu();
+      else openMenu();
+    });
+
+    for (const opt of options) {
+      opt.addEventListener('click', () => {
+        const value = opt.dataset.themeSet as Selection | undefined;
+        if (value === 'light' || value === 'dark' || value === 'system') {
+          applySelection(value);
+        }
+        closeMenu();
+        trigger.focus();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!isMenuOpen()) return;
+      const t = e.target as Node;
+      if (!control.contains(t)) closeMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen()) {
+        closeMenu();
+        trigger.focus();
+      }
+    });
+
+    // When 'system' is selected, follow OS theme changes live.
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    mql.addEventListener('change', (ev) => {
+      if (getSelection() === 'system') {
+        root.classList.add('theme-transition-suppressed');
+        root.setAttribute('data-theme', ev.matches ? 'dark' : 'light');
+        void root.offsetHeight;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            root.classList.remove('theme-transition-suppressed');
+          });
+        });
+      }
+    });
+
+    updateMenuState();
+  }
+</script>
+
+<style>
+  .theme-control {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .theme-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+
+  .theme-trigger:hover,
+  .theme-trigger[aria-expanded='true'] {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+
+  /* Trigger icon: show whichever matches the resolved theme. */
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+  :global([data-theme='dark']) .icon-sun { display: block; }
+  :global([data-theme='dark']) .icon-moon { display: none; }
+
+  /* ----- Menu ----- */
+  .theme-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    margin: 0;
+    padding: var(--space-1);
+    list-style: none;
+    min-width: 9.5rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.06);
+    z-index: 60;
+  }
+
+  :global([data-theme='dark']) .theme-menu {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .theme-menu li {
+    margin: 0;
+  }
+
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    text-align: left;
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+
+  .theme-option:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+
+  .theme-option.is-active {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+
+  .opt-icon {
+    flex-shrink: 0;
+    color: var(--color-text-subtle);
+  }
+
+  .theme-option.is-active .opt-icon {
+    color: var(--color-accent);
+  }
+</style>

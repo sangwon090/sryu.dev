@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+---
+
+<BaseLayout locale={locale} title={t(locale, 'search.title')}>
+  <section class="container search-page">
+    <header class="page-head">
+      <h1>{t(locale, 'search.title')}</h1>
+    </header>
+
+    <div class="search-shell">
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder={t(locale, 'search.placeholder')}
+        autocomplete="off"
+        autofocus
+        aria-label={t(locale, 'search.title')}
+      />
+      <p class="search-hint" id="search-hint">{t(locale, 'search.empty')}</p>
+      <ol class="search-results" id="search-results" role="list"></ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ locale, msgs: { empty: t(locale, 'search.empty'), none: t(locale, 'search.noResults') } }}>
+  const input = document.getElementById('search-input');
+  const hint = document.getElementById('search-hint');
+  const results = document.getElementById('search-results');
+
+  let pagefind = null;
+  let timer = null;
+
+  async function ensurePagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+      await pagefind.options({ baseUrl: '/' });
+      return pagefind;
+    } catch (e) {
+      hint.textContent = 'Search index unavailable in dev. Run `pnpm build` to enable.';
+      return null;
+    }
+  }
+
+  function escape(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+  }
+
+  async function runSearch(query) {
+    const pf = await ensurePagefind();
+    if (!pf) return;
+    const search = await pf.search(query, { filters: { lang: locale } });
+    if (!search || search.results.length === 0) {
+      hint.textContent = msgs.none;
+      hint.style.display = '';
+      results.innerHTML = '';
+      return;
+    }
+    hint.style.display = 'none';
+    const items = await Promise.all(search.results.slice(0, 20).map((r) => r.data()));
+    results.innerHTML = items
+      .map((d) => {
+        const tags = (d.filters && d.filters.tag ? d.filters.tag : []) || [];
+        const tagMarkup = tags
+          .map((tt) => `<span class="r-tag">#${escape(tt)}</span>`)
+          .join('');
+        return `
+          <li class="r-item">
+            <a href="${escape(d.url)}">
+              <h2 class="r-title">${d.meta && d.meta.title ? escape(d.meta.title) : escape(d.url)}</h2>
+              <p class="r-excerpt">${d.excerpt || ''}</p>
+              <div class="r-meta">${tagMarkup}</div>
+            </a>
+          </li>`;
+      })
+      .join('');
+  }
+
+  function onInput() {
+    const q = input.value.trim();
+    clearTimeout(timer);
+    if (!q) {
+      hint.textContent = msgs.empty;
+      hint.style.display = '';
+      results.innerHTML = '';
+      return;
+    }
+    timer = setTimeout(() => runSearch(q), 120);
+  }
+
+  input.addEventListener('input', onInput);
+</script>
+
+<style>
+  .search-page { max-width: var(--width-prose); }
+
+  .page-head { margin-bottom: var(--space-6); }
+
+  .page-head h1 { margin: 0; font-size: var(--fs-2xl); }
+
+  .search-input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font: inherit;
+    font-size: var(--fs-md);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--dur-fast) var(--ease);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .search-hint {
+    margin: var(--space-4) 0 0;
+    color: var(--color-text-subtle);
+    font-size: var(--fs-sm);
+    font-style: italic;
+  }
+
+  .search-results {
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+  }
+
+  .search-results :global(.r-item) {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .search-results :global(.r-item a) {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .search-results :global(.r-title) {
+    margin: 0;
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .search-results :global(.r-item a:hover .r-title) { color: var(--color-accent); }
+
+  .search-results :global(.r-excerpt) {
+    margin: var(--space-2) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-normal);
+  }
+
+  .search-results :global(mark) {
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    padding: 0.05em 0.2em;
+    border-radius: var(--radius-sm);
+  }
+
+  .search-results :global(.r-meta) {
+    margin-top: var(--space-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--color-text-subtle);
+  }
+</style>

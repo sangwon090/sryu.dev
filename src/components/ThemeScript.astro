@@ -1,0 +1,28 @@
+---
+/**
+ * Inline theme bootstrap. Must be placed inside <head> as the first non-meta
+ * element so it runs before any layout paint, eliminating theme flicker.
+ *
+ * Behavior:
+ *   - If localStorage has 'theme' = 'light' | 'dark', that wins.
+ *   - Otherwise, the value 'system' (or absence) follows prefers-color-scheme.
+ *   - The resolved theme is written to <html data-theme="...">.
+ */
+---
+<script is:inline>
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var theme;
+      if (stored === 'light' || stored === 'dark') {
+        theme = stored;
+      } else {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      // localStorage may be unavailable (private mode, etc.) — fall through
+      // and let CSS @media query handle it.
+    }
+  })();
+</script>

@@ -1,0 +1,45 @@
+---
+import { t, type Locale } from '../i18n/ui';
+import { switchLocalePath } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  /**
+   * Optional: per-locale paths (used on article pages so the toggle jumps to
+   * the actual translation rather than just the equivalent URL slot).
+   */
+  paths?: Partial<Record<Locale, string | undefined>>;
+}
+
+const { locale, paths } = Astro.props;
+const target: Locale = locale === 'ko' ? 'en' : 'ko';
+const href = paths?.[target] ?? switchLocalePath(Astro.url.pathname, target);
+const label = target === 'en' ? 'KO' : 'EN';
+---
+
+<a class="lang-toggle" href={href} hreflang={target} aria-label={t(locale, 'language.switch')}>
+  {label}
+</a>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2.25rem;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+
+  .lang-toggle:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+</style>

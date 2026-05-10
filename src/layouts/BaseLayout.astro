@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+import ThemeScript from '../components/ThemeScript.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  /** When true, sets <meta name="robots" content="noindex,follow"> */
+  noindex?: boolean;
+  /** Optional alternate URLs per locale (used on article pages). */
+  langPaths?: Partial<Record<Locale, string | undefined>>;
+  /** Optional og:image absolute or site-relative URL. */
+  ogImage?: string;
+  /** Body class to enable Pagefind indexing on article pages only. */
+  bodyClass?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  noindex = false,
+  langPaths,
+  ogImage,
+  bodyClass,
+} = Astro.props;
+
+const siteTitle = t(locale, 'site.title');
+const siteDescription = description ?? t(locale, 'site.description');
+const fullTitle = title ? `${title} — ${siteTitle}` : `${siteTitle} · ${t(locale, 'site.subtitle')}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://blog.sryu.dev').toString();
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <ThemeScript />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={siteDescription} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+
+    <link rel="canonical" href={canonical} />
+    {
+      langPaths &&
+        Object.entries(langPaths).map(
+          ([lang, path]) =>
+            path && (
+              <link
+                rel="alternate"
+                hreflang={lang}
+                href={new URL(path, Astro.site ?? 'https://blog.sryu.dev').toString()}
+              />
+            ),
+        )
+    }
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteTitle} (한국어)`} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteTitle} (English)`} href="/en/rss.xml" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header locale={locale} langPaths={langPaths} />
+    <main id="main-content" class="site-main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+
+<style>
+  .site-main {
+    flex: 1;
+    padding-block: var(--space-7);
+  }
+</style>

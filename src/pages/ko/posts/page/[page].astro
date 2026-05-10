@@ -1,0 +1,18 @@
+---
+import type { GetStaticPaths } from 'astro';
+import PostsListView from '../../../../views/PostsListView.astro';
+import { getPostsByLocale, POSTS_PAGE_SIZE } from '../../../../utils/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPostsByLocale('ko');
+  const total = Math.max(1, Math.ceil(posts.length / POSTS_PAGE_SIZE));
+  const paths: { params: { page: string } }[] = [];
+  for (let i = 2; i <= total; i++) {
+    paths.push({ params: { page: String(i) } });
+  }
+  return paths;
+};
+
+const { page } = Astro.params;
+---
+<PostsListView locale="ko" page={Number(page)} />

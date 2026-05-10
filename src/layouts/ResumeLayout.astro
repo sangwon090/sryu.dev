@@ -1,0 +1,78 @@
+---
+import '../styles/resume.css';
+---
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>유상원 · Sangwon Ryu</title>
+
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+		<script is:inline>
+			const applyTheme = () => {
+				const savedTheme = localStorage.getItem('theme') || 'system';
+				const isDark = (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches));
+				document.documentElement.classList.toggle('dark', isDark);
+			};
+			applyTheme();
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (!localStorage.getItem('theme') || localStorage.getItem('theme') === 'system') {
+					applyTheme();
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+:root {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    color-scheme: light dark;
+    background-color: var(--color-page-bg);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+  }
+
+  h1, h2, h3, h4, h5, p, span, a, button, .menu-content {
+    transition: color 0.4s ease-in-out,
+                background-color 0.4s ease-in-out,
+                border-color 0.4s ease-in-out;
+
+    transform: translateZ(0);
+  }
+
+  h1, h2, h3, h4, h5, p, span, a, button, .menu-content {
+    transition: color 0.4s ease,
+                background-color 0.4s ease,
+                border-color 0.4s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .dropdown-open {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition: all 0.3s ease-out !important;
+  }
+</style>

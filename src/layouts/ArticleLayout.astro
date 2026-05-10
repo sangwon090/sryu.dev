@@ -1,0 +1,332 @@
+---
+import type { MarkdownHeading } from 'astro';
+import type { Post } from '../utils/posts';
+import { findTranslation, postPath, estimateReadingTime } from '../utils/posts';
+import { t, type Locale } from '../i18n/ui';
+import { formatDate } from '../i18n/utils';
+import { buildToc } from '../utils/toc';
+import { localizedPath } from '../i18n/utils';
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import TranslationNotice from '../components/TranslationNotice.astro';
+import Comments from '../components/Comments.astro';
+
+interface Props {
+  post: Post;
+  headings: MarkdownHeading[];
+}
+
+const { post, headings } = Astro.props;
+const locale: Locale = post.data.lang;
+const otherLocale: Locale = locale === 'en' ? 'ko' : 'en';
+
+const counterpart = await findTranslation(post, otherLocale);
+const counterpartPath = counterpart ? postPath(counterpart) : undefined;
+
+// Build hreflang map: current locale always available; other only if counterpart exists.
+const langPaths: Partial<Record<Locale, string>> = {
+  [locale]: postPath(post),
+  ...(counterpartPath ? { [otherLocale]: counterpartPath } : {}),
+};
+
+const toc = buildToc(headings);
+const readingTime = estimateReadingTime(post.body, locale);
+
+const isMachineTranslated = post.data.translationType === 'machine';
+const noindex = isMachineTranslated;
+
+// Original URL link target (only meaningful for translations).
+let originalUrl: string | undefined;
+if (post.data.originalLang && post.data.originalLang !== locale) {
+  const original = await findTranslation(post, post.data.originalLang);
+  if (original) originalUrl = postPath(original);
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={post.data.title}
+  description={post.data.description}
+  noindex={noindex}
+  langPaths={langPaths}
+  bodyClass="article-page"
+>
+  <article
+    class="article container"
+    data-pagefind-body
+    data-pagefind-meta={`title:${post.data.title}`}
+    data-pagefind-filter={`lang:${locale}, type:${post.data.translationType}`}
+  >
+    <header class="article-header">
+      <div class="title-row">
+        <h1 class="article-title">{post.data.title}</h1>
+        {post.data.series && (
+          <a
+            class="article-series"
+            href={localizedPath(locale, `tags/${encodeURIComponent(post.data.series)}/`)}
+          >
+            {post.data.series}
+          </a>
+        )}
+      </div>
+
+      {post.data.description && (
+        <p class="article-subtitle">{post.data.description}</p>
+      )}
+
+      <div class="article-meta">
+        <time datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date, locale)}
+        </time>
+        {locale === 'en' && (
+          <>
+            <span class="dot" aria-hidden="true">·</span>
+            <span>{readingTime} {t(locale, 'article.readingTime')}</span>
+          </>
+        )}
+
+        {post.data.translationType !== 'original' && (
+          <>
+            <span class="dot" aria-hidden="true">·</span>
+            <span class="translation-tag" data-type={post.data.translationType}>
+              {post.data.translationType === 'machine'
+                ? t(locale, 'translation.machine')
+                : t(locale, 'translation.manual')}
+            </span>
+          </>
+        )}
+      </div>
+
+      {post.data.tags.length > 0 && (
+        <ul class="article-tags" role="list">
+          {post.data.tags.map((tag) => (
+            <li>
+              <a
+                class="tag"
+                href={localizedPath(locale, `tags/${encodeURIComponent(tag)}/`)}
+                data-pagefind-filter="tag"
+              >
+                #{tag}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    {isMachineTranslated && (
+      <TranslationNotice locale={locale} originalUrl={originalUrl} />
+    )}
+
+    <div class="article-layout">
+      <div class="article-body">
+        {/* Mobile ToC: appears in flow before content. */}
+        {toc.length > 0 && (
+          <div class="mobile-only">
+            <TableOfContents items={toc} locale={locale} variant="mobile" />
+          </div>
+        )}
+
+        <div class="article-content">
+          <slot />
+        </div>
+
+        {post.data.citations && post.data.citations.length > 0 && (
+          <section class="citations" aria-label="Citations">
+            <h2>References</h2>
+            <ol>
+              {post.data.citations.map((c) => (
+                <li>
+                  {c.url ? <a href={c.url}>{c.title}</a> : <span>{c.title}</span>}
+                  {c.author && <span class="muted"> — {c.author}</span>}
+                  {c.note && <span class="muted">. {c.note}</span>}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {post.data.comments && (
+          <Comments issueNumber={post.data.commentsIssue} />
+        )}
+      </div>
+
+      {toc.length > 0 && (
+        <aside class="article-aside desktop-only">
+          <TableOfContents items={toc} locale={locale} />
+        </aside>
+      )}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: var(--width-content);
+  }
+
+  .article-header {
+    max-width: var(--width-prose);
+    margin-inline: auto;
+    margin-bottom: var(--space-7);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+  }
+
+  .title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .article-series {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    text-decoration: none;
+    flex-shrink: 0;
+    align-self: baseline;
+    white-space: nowrap;
+  }
+
+  .article-series:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .article-title {
+    margin: 0;
+    font-size: var(--fs-3xl);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .article-subtitle {
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-lg);
+    color: var(--color-text-muted);
+    line-height: var(--lh-snug);
+    font-weight: 400;
+  }
+
+  .article-meta {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: baseline;
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .article-meta .dot { color: var(--color-border-strong); }
+  .article-meta .muted { color: var(--color-text-subtle); }
+
+  .translation-tag {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    border: 1px solid var(--color-border);
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .translation-tag[data-type='machine'] {
+    color: var(--color-accent);
+    border-color: var(--color-accent-soft);
+  }
+
+  .article-tags {
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .article-tags .tag {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .article-tags .tag:hover { color: var(--color-accent); }
+
+  /* ----- Layout: body + ToC sidebar ----- */
+  .article-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+
+  .article-body {
+    max-width: var(--width-prose);
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .article-aside {
+    display: none;
+  }
+
+  @media (min-width: 1100px) {
+    .article-layout {
+      grid-template-columns: minmax(0, 1fr) 16rem;
+      max-width: none;
+    }
+    .article-body {
+      margin-inline: 0;
+      margin-left: auto;
+    }
+    .article-aside {
+      display: block;
+    }
+  }
+
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
+
+  @media (min-width: 1100px) {
+    .mobile-only { display: none; }
+    .desktop-only { display: block; }
+  }
+
+  /* ----- Citations ----- */
+  .citations {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+  }
+
+  .citations h2 {
+    font-size: var(--fs-base);
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-subtle);
+    font-weight: 500;
+  }
+
+  .citations ol {
+    padding-left: var(--space-5);
+  }
+
+  .citations li {
+    margin-top: var(--space-2);
+  }
+
+  .citations .muted {
+    color: var(--color-text-subtle);
+  }
+</style>

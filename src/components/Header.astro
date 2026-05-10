@@ -1,0 +1,148 @@
+---
+import type { Locale } from '../i18n/ui';
+import { t } from '../i18n/ui';
+import { localizedPath } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  locale: Locale;
+  /** Optional explicit per-locale paths for the language switcher. */
+  langPaths?: Partial<Record<Locale, string | undefined>>;
+}
+
+const { locale, langPaths } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems: { key: Parameters<typeof t>[1]; href: string }[] = [
+  { key: 'nav.posts', href: localizedPath(locale, 'posts/') },
+  { key: 'nav.tags', href: localizedPath(locale, 'tags/') },
+  { key: 'nav.search', href: localizedPath(locale, 'search/') },
+  { key: 'nav.about', href: localizedPath(locale, 'about/') },
+];
+
+function isActive(href: string): boolean {
+  if (href === localizedPath(locale, '')) {
+    return currentPath === href;
+  }
+  return currentPath === href || currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="container-wide header-inner">
+    <a class="brand" href={localizedPath(locale, '')}>
+      <span class="brand-mark">sryu</span><span class="brand-dim">.dev</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', isActive(item.href) && 'active']}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {t(locale, item.key)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-tools">
+      <LanguageSwitcher locale={locale} paths={langPaths} />
+      <ThemeToggle locale={locale} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--color-bg) 92%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    height: 3.5rem;
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-size: var(--fs-lg);
+    /* Brand weights are bumped one step to cancel out the Latin "one-step
+     * lighter" shift in fonts.css, preserving the original navbar look. */
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .brand:hover { color: var(--color-text); }
+
+  .brand-dim {
+    color: var(--color-text-subtle);
+    font-weight: 600;
+  }
+
+  .primary-nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .primary-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-sm);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--color-text-muted);
+    padding: 0.25rem 0;
+    transition: color var(--dur-fast) var(--ease);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .header-inner {
+      gap: var(--space-3);
+    }
+    .primary-nav ul {
+      gap: var(--space-3);
+    }
+    .brand-dim {
+      display: none;
+    }
+  }
+</style>

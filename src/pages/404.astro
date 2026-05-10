@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { defaultLocale } from '../i18n/ui';
+
+const locale = defaultLocale;
+---
+
+<BaseLayout locale={locale} title="404 Not Found">
+  <section class="not-found">
+    <h1>404 Not Found</h1>
+    <p class="actions">
+      <a href="/">← Back to home</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-6);
+    padding-inline: var(--space-5);
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(var(--fs-3xl), 8vw, 4.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .actions {
+    margin: 0;
+    font-size: var(--fs-sm);
+  }
+
+  .actions a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .actions a:hover {
+    color: var(--color-accent);
+  }
+</style>

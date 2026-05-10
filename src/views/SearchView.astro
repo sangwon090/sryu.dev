@@ -57,7 +57,10 @@ const { locale } = Astro.props;
   async function runSearch(query) {
     const pf = await ensurePagefind();
     if (!pf) return;
-    const search = await pf.search(query, { filters: { lang: locale } });
+    // Pagefind already segments its index by <html lang>, so the page's
+    // locale naturally scopes results — adding an explicit `lang` filter
+    // here was over-restricting matches and returning zero results.
+    const search = await pf.search(query);
     if (!search || search.results.length === 0) {
       hint.textContent = msgs.none;
       hint.style.display = '';
@@ -127,7 +130,6 @@ const { locale } = Astro.props;
     margin: var(--space-4) 0 0;
     color: var(--color-text-subtle);
     font-size: var(--fs-sm);
-    font-style: italic;
   }
 
   .search-results {

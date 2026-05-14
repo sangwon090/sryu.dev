@@ -1,0 +1,276 @@
+{
+  "name": {
+    "primary": "Sangwon Ryu",
+    "secondary": "유상원"
+  },
+  "bio": "Computer Science and Engineering Student @ Soongsil University",
+  "sections": [
+    {
+      "name": "Education",
+      "items": [
+        {
+          "name": "Computer Science and Engineering, Soongsil University",
+          "contents": [
+            "Clubs and Societies: [SCCC](https://sccc.kr/)",
+            "Organized and set problems for [2024 SCON](https://sccc.kr/scon/2024/), an in-school algorithm contest"
+          ],
+          "period": "Mar 2023 – Present"
+        }
+      ]
+    },
+    {
+      "name": "Experience",
+      "items": [
+        {
+          "name": "Republic of Korea Air Force – Cybersecurity Specialist (Sergeant)",
+          "contents": [
+            "Performed security monitoring and server administration at the CERT"
+          ],
+          "period": "Jul 2024 – Mar 2026"
+        },
+        {
+          "name": "Software Maestro 14th – Trainee",
+          "contents": [
+            "Team: 새싹들(Daehyun Kang, Sangwon Ryu, Suyoung Hwang)",
+            "Led backend development across the full lifecycle, from planning to deployment"
+          ],
+          "period": "Apr 2023 – Nov 2023"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "items": [
+        {
+          "name": "[Haetae](https://github.com/sangwon090/haetae)",
+          "inlineDescription": "A functional DSL for heterogeneous computing",
+          "contents": [
+            "Developing the semantic analysis pipeline and MLIR generator pipeline",
+            "Used libFuzzer to identify and fix stability issues in the parser"
+          ],
+          "period": "Feb 2026 – Present"
+        },
+        {
+          "name": "[Collectime](https://github.com/swm-collectime/)",
+          "inlineDescription": "An optimized group scheduling service",
+          "contents": [
+            "Designed and implemented RESTful APIs using Kotlin and Spring Framework",
+            "Built a CI/CD pipeline and automated Docker image build and deployment",
+            "Implemented a batch-based calendar synchronization system"
+          ],
+          "period": "Apr 2023 – Nov 2023"
+        }
+      ]
+    },
+    {
+      "name": "Vulnerability Disclosure",
+      "items": [
+        {
+          "name": "Confidential Report",
+          "inlineDescription": "",
+          "contents": [
+            "Pending public disclosure"
+          ],
+          "period": "Jan 2026"
+        }
+      ]
+    },
+    {
+      "name": "Competitions",
+      "items": [
+        {
+          "name": "2026 HackTheon Sejong – Finalist",
+          "contents": [
+            "Team: 15자 이내로 팀 특성을 잘..."
+          ],
+          "period": "Jul 2026 (Expected)"
+        },
+        {
+          "name": "2026 INCOGNITO Ideathon: Privacy Protection in the AI Era – Encouragement Award",
+          "contents": [
+            "Team: underFlow"
+          ],
+          "period": "May 2026"
+        },
+        {
+          "name": "2026 INCOGNITO CTF – 24th Place (Quals)",
+          "contents": [
+            "Team: 할렐야루"
+          ],
+          "period": "Feb 2026"
+        },
+        {
+          "name": "University Student AI System Trading Challenge – Excellence Award",
+          "contents": [
+            "Individual",
+            "Awarded by the Director of Soongsil University AI Bootcamp Program"
+          ],
+          "period": "Feb 2026"
+        },
+        {
+          "name": "47th Air Force ICT Competition (Hacking Defense Division) – 1st Place",
+          "contents": [
+            "Individual",
+            "Awarded by the Republic of Korea Air Force Chief of Staff"
+          ],
+          "period": "Dec 2025"
+        },
+        {
+          "name": "WhiteHat 2025 Contest – 1st Place",
+          "contents": [
+            "Team: 화잇짜",
+            "Awarded by the Minister of National Defense, Republic of Korea"
+          ],
+          "period": "Nov 2025"
+        },
+        {
+          "name": "Financial Security Institute FIESTA 2025 – 13th Place",
+          "contents": [
+            "Team: 27일날세계불꽃축제..."
+          ],
+          "period": "Sep 2025"
+        },
+        {
+          "name": "Military Startup Contest – Challenge Award",
+          "contents": [
+            "Team: ArchiFlow",
+            "Awarded by the Director of the Military Outplace Training Institute"
+          ],
+          "period": "Sep 2025"
+        },
+        {
+          "name": "Cyber Conflict Exercise 2025 – 4th Place (Public Sector Division)",
+          "contents": [
+            "Team: 곤운"
+          ],
+          "period": "Sep 2025"
+        },
+        {
+          "name": "Air Force Startup Contest – Encouragement Award",
+          "contents": [
+            "Team: ArchiFlow",
+            "Awarded by the Republic of Korea Air Force Deputy Chief of Staff for Personnel"
+          ],
+          "period": "Jun 2025"
+        },
+        {
+          "name": "2025 HackTheon Sejong – 26th Place",
+          "contents": [
+            "Team: 퉁퉁퉁 사후르"
+          ],
+          "period": "Apr 2025"
+        },
+        {
+          "name": "WhiteHat 2024 Contest – 4th Place",
+          "contents": [
+            "Team: 이곳이네집이다"
+          ],
+          "period": "Nov 2024"
+        },
+        {
+          "name": "2024 HackTheon Sejong – 30th Place",
+          "contents": [
+            "Team: 몬스터에너지망고로코"
+          ],
+          "period": "Apr 2024"
+        },
+        {
+          "name": "HSpace Partners League – 3rd Place",
+          "contents": [
+            "Team: Soongsil University ASC"
+          ],
+          "period": "Nov 2023"
+        },
+        {
+          "name": "CODEGATE 2023 – 14th Place",
+          "contents": [
+            "Team: ASC"
+          ],
+          "period": "Jun 2023"
+        },
+        {
+          "name": "2023 UMDCTF – 8th Place (University Division)",
+          "contents": [
+            "Team: SASC"
+          ],
+          "period": "May 2023"
+        },
+        {
+          "name": "2022 INCOGNITO CTF – 8th Place",
+          "contents": [
+            "Individual",
+            "Encouragement Award"
+          ],
+          "period": "Apr 2023"
+        },
+        {
+          "name": "Soongsil University Hacking Defense Competition – 1st Place (Beginner Division)",
+          "contents": [
+            "Individual",
+            "Awarded by the Dean of Soongsil University College of IT"
+          ],
+          "period": "Mar 2023"
+        }
+      ]
+    },
+    {
+      "name": "Additional Experience",
+      "items": [
+        {
+          "name": "Mentor, Guam High School Programming Club",
+          "contents": [
+            "Mentored students on project ideation and LLM-based service implementation"
+          ],
+          "period": "Apr 2026 – Present"
+        },
+        {
+          "name": "Incident Analysis and Response Support for a Nonprofit Organization",
+          "contents": [
+            "Analyzed logs and system artifacts to identify attack vectors and incident timeline",
+            "Identified potentially affected applications and assessed risk of further compromise",
+            "Proposed follow-up actions including vulnerability mitigation, account resets, log preservation, and KISA reporting"
+          ],
+          "period": "Apr 2026"
+        },
+        {
+          "name": "Assistant Instructor, Computer Networking Department at Hanyang Technical High School",
+          "contents": [
+            "Mentored teams on project idea refinement and development planning during a work-study training program",
+            "Supported troubleshooting of technical issues in web and game programming"
+          ],
+          "period": "Jul 2023"
+        }
+      ]
+    },
+    {
+      "name": "Certifications",
+      "items": [
+        {
+          "name": "Industrial Engineer Information Security",
+          "description": "Korea Communications Agency (KCA)",
+          "period": "Dec 2025"
+        },
+        {
+          "name": "Industrial Engineer Information Processing",
+          "description": "Human Resource Development Service of Korea (HRDK)",
+          "period": "Dec 2025"
+        },
+        {
+          "name": "SQL Developer",
+          "description": "Korea Data Agency",
+          "period": "Apr 2024"
+        },
+        {
+          "name": "TOEIC – Score: 960",
+          "description": "Korea TOEIC Committee",
+          "period": "Feb 2024"
+        },
+        {
+          "name": "TOPCIT – Level 4 (Score: 688)",
+          "description": "Institute of Information & Communications Technology Planning & Evaluation (IITP)",
+          "period": "Oct 2023"
+        }
+      ]
+    }
+  ]
+}

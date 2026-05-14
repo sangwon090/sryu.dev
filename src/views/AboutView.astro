@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { t, type Locale } from '../i18n/ui';
+import { localizedPath } from '../i18n/utils';
 
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
@@ -29,6 +30,9 @@ const { locale } = Astro.props;
           <p>
             이곳에는 컴퓨터를 공부하며 배운 것들과, 세상을 살아가며 느낀 것들을 기록하려고 합니다.
           </p>
+          <p>
+            제 <a href={localizedPath(locale, 'resume/')}>레쥬메</a>와 <a href={localizedPath(locale, 'cv/')}>CV</a>도 함께 올려두었습니다.
+          </p>
         </>
       ) : (
         <>
@@ -41,10 +45,13 @@ const { locale } = Astro.props;
           </p>
           <p>
             These days, I try to spend a little less time looking at monitors and experience the world with my whole body.
-            Even though I kept printing <code>hello, world</code> on the screen, I realized I may have been rather indifferent to the world itself.
+            Even though I kept printing <code>hello, world</code> on the screen, I realized that I may have been rather indifferent to the world itself.
           </p>
           <p>
             Here, I plan to record the things I learn while studying computer science, as well as the thoughts I gather while living through the world.
+          </p>
+          <p>
+            You can also find my <a href={localizedPath(locale, 'resume/')}>résumé</a> and <a href={localizedPath(locale, 'cv/')}>CV</a> here.
           </p>
         </>
       )}

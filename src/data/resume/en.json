@@ -26,13 +26,13 @@
           "contents": [
             "Performed security monitoring and server administration at the CERT"
           ],
-          "period": "July 2024 – Mar 2026"
+          "period": "Jul 2024 – Mar 2026"
         },
         {
           "name": "Software Maestro 14th – Trainee",
           "contents": [
             "Team: 새싹들(Daehyun Kang, Sangwon Ryu, Suyoung Hwang)",
-            "Led backend development across the full lifecycle, from planning to deployment."
+            "Led backend development across the full lifecycle, from planning to deployment"
           ],
           "period": "Apr 2023 – Nov 2023"
         }
@@ -45,7 +45,7 @@
           "name": "[Haetae](https://github.com/sangwon090/haetae)",
           "inlineDescription": "A functional DSL for heterogeneous computing",
           "contents": [
-            "Developing Semantic Analysis pipeline and MLIR Generator pipeline",
+            "Developing the semantic analysis pipeline and MLIR generator pipeline",
             "Used libFuzzer to identify and fix stability issues in the parser"
           ],
           "period": "Feb 2026 – Present"

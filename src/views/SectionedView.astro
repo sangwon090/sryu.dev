@@ -6,21 +6,35 @@ import ResumeLayout from '../layouts/ResumeLayout.astro';
 import Navbar from '../components/resume/Navbar.astro';
 import Footer from '../components/resume/Footer.astro';
 
-import ko from '../data/resume/ko.json';
-import en from '../data/resume/en.json';
-
-interface Props {
-  locale: 'ko' | 'en';
+interface Item {
+  name: string;
+  period: string;
+  inlineDescription?: string;
+  description?: string;
+  contents?: string[];
 }
 
-const { locale } = Astro.props;
+interface Section {
+  name: string;
+  items: Item[];
+}
+
+interface Data {
+  name: { primary: string; secondary: string };
+  bio: string;
+  sections: Section[];
+}
+
+interface Props {
+  data: Data;
+}
+
+const { data } = Astro.props;
 
 marked.setOptions({
   breaks: true,
   gfm: true,
 });
-
-const t = locale === 'ko' ? ko : en;
 ---
 
 <ResumeLayout>
@@ -29,10 +43,10 @@ const t = locale === 'ko' ? ko : en;
   <main class="w-full max-w-5xl mx-auto px-6 sm:px-10 py-8">
     <section class="mt-4 sm:mt-5 mb-16 sm:mb-20">
       <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-2.5 gap-y-1 sm:gap-y-0.5">
-        <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight m-0 leading-tight">{t.name.primary}</h1>
-        <span class="text-xl sm:text-2xl font-medium m-0 text-stone-700 dark:text-stone-300">{t.name.secondary}</span>
+        <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight m-0 leading-tight">{data.name.primary}</h1>
+        <span class="text-xl sm:text-2xl font-medium m-0 text-stone-700 dark:text-stone-300">{data.name.secondary}</span>
       </div>
-      <p class="print:hidden mt-3 text-base font-medium text-stone-500 leading-normal">{t.bio}</p>
+      <p class="print:hidden mt-3 text-base font-medium text-stone-500 leading-normal">{data.bio}</p>
       <p class="hidden print:flex mt-3 flex-wrap gap-x-3 text-base font-medium text-stone-500 leading-normal">
         <a href="https://linkedin.com/in/sangwon090" class="inline-flex items-center gap-x-1 font-medium"><Icon aria-hidden="true" class="w-4 h-4" name="fa7-brands:linkedin-in" /> in/sangwon090</a>
         <a href="mailto:me@sryu.dev" class="inline-flex items-center gap-x-1 font-medium"><Icon aria-hidden="true" class="w-4 h-4 translate-y-[1px]" name="lucide:mail" /> me@sryu.dev</a>
@@ -41,7 +55,7 @@ const t = locale === 'ko' ? ko : en;
     </section>
 
     <div class="flex flex-col gap-y-12">
-      {t.sections.map((section) => (
+      {data.sections.map((section) => (
         <section>
           <h2 class="text-2xl font-bold m-0 mb-4 pb-2 leading-none border-b border-stone-200 dark:border-stone-800">{section.name}</h2>
 

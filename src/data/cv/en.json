@@ -217,13 +217,6 @@
       "name": "Additional Experience",
       "items": [
         {
-          "name": "Mentor, Guam High School Programming Club",
-          "contents": [
-            "Mentored students on project ideation and LLM-based service implementation"
-          ],
-          "period": "Apr 2026 – Present"
-        },
-        {
           "name": "Incident Analysis and Response Support for a Nonprofit Organization",
           "contents": [
             "Analyzed logs and system artifacts to identify attack vectors and incident timeline",

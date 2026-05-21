@@ -24,7 +24,8 @@
         {
           "name": "대한민국공군 – 정보보호병",
           "contents": [
-            "단급 CERT에서 보안 관제 및 서버 관리 업무 수행"
+            "단급 CERT에서 보안 관제 및 서버 관리 업무 수행",
+            "망분리 환경에서 보안 업데이트 관리를 위한 도구 제작"
           ],
           "period": "2024. 7. – 2026. 3."
         },
@@ -59,6 +60,20 @@
             "외부 캘린더 서비스 연동 및 배치 동기화 시스템 구축"
           ],
           "period": "2023. 4. – 2023. 11."
+        }
+      ]
+    },
+    {
+      "name": "취약점 제보",
+      "items": [
+        {
+          "name": "LizardByte/Sunshine",
+          "inlineDescription": "CVE-2026-32253 · [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)",
+          "contents": [
+            "잘못된 인증서 검증으로 인한 인증 우회 취약점 제보",
+            "CVSS: 9.8 Critical (v3.1)"
+          ],
+          "period": "2026. 5."
         }
       ]
     },

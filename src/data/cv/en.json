@@ -24,7 +24,8 @@
         {
           "name": "Republic of Korea Air Force – Cybersecurity Specialist (Sergeant)",
           "contents": [
-            "Performed security monitoring and server administration at the CERT"
+            "Performed security monitoring and server administration at the CERT",
+            "Developed a security update management tool in an air-gapped environment"
           ],
           "period": "Jul 2024 – Mar 2026"
         },
@@ -63,15 +64,16 @@
       ]
     },
     {
-      "name": "Vulnerability Disclosure",
+      "name": "Security Advisories",
       "items": [
         {
-          "name": "Confidential Report",
-          "inlineDescription": "",
+          "name": "LizardByte/Sunshine",
+          "inlineDescription": "CVE-2026-32253 · [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)",
           "contents": [
-            "Pending public disclosure"
+            "Authentication bypass via improper client certificate validation",
+            "CVSS: 9.8 Critical (v3.1)"
           ],
-          "period": "Jan 2026"
+          "period": "Mar 2026"
         }
       ]
     },

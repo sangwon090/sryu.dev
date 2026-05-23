@@ -73,7 +73,7 @@
             "Authentication bypass via improper client certificate validation",
             "CVSS: 9.8 Critical (v3.1)"
           ],
-          "period": "Mar 2026"
+          "period": "May 2026"
         }
       ]
     },

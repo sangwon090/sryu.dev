@@ -68,10 +68,10 @@
       "items": [
         {
           "name": "LizardByte/Sunshine",
-          "inlineDescription": "CVE-2026-32253 · [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)",
+          "inlineDescription": "CVE-2026-32253 · 9.8 Critical",
           "contents": [
             "Authentication bypass via improper client certificate validation",
-            "CVSS: 9.8 Critical (v3.1)"
+            "GitHub Security Advisory: [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)"
           ],
           "period": "May 2026"
         }

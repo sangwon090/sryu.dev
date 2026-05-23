@@ -68,10 +68,10 @@
       "items": [
         {
           "name": "LizardByte/Sunshine",
-          "inlineDescription": "CVE-2026-32253 · [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)",
+          "inlineDescription": "CVE-2026-32253 · 9.8 Critical",
           "contents": [
-            "잘못된 인증서 검증으로 인한 인증 우회 취약점 제보",
-            "CVSS: 9.8 Critical (v3.1)"
+            "잘못된 인증서 검증으로 인한 인증 우회 취약점",
+            "GitHub Security Advisory: [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)"
           ],
           "period": "2026. 5."
         }

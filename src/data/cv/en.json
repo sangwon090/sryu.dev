@@ -14,7 +14,8 @@
             "Clubs and Societies: [SCCC](https://sccc.kr/)",
             "Organized and set problems for [2024 SCON](https://sccc.kr/scon/2024/), an in-school algorithm contest"
           ],
-          "period": "Mar 2023 – Present"
+          "period": "Mar 2023 – Present",
+          "resume": true
         }
       ]
     },
@@ -27,7 +28,8 @@
             "Performed security monitoring and server administration at the CERT",
             "Developed a security update management tool in an air-gapped environment"
           ],
-          "period": "Jul 2024 – Mar 2026"
+          "period": "Jul 2024 – Mar 2026",
+          "resume": true
         },
         {
           "name": "Software Maestro 14th – Trainee",
@@ -35,7 +37,8 @@
             "Team: 새싹들(Daehyun Kang, Sangwon Ryu, Suyoung Hwang)",
             "Led backend development across the full lifecycle, from planning to deployment"
           ],
-          "period": "Apr 2023 – Nov 2023"
+          "period": "Apr 2023 – Nov 2023",
+          "resume": true
         }
       ]
     },
@@ -49,7 +52,8 @@
             "Developing the semantic analysis pipeline and MLIR generator pipeline",
             "Used libFuzzer to identify and fix stability issues in the parser"
           ],
-          "period": "Feb 2026 – Present"
+          "period": "Feb 2026 – Present",
+          "resume": true
         },
         {
           "name": "[Collectime](https://github.com/swm-collectime/)",
@@ -59,7 +63,8 @@
             "Built a CI/CD pipeline and automated Docker image build and deployment",
             "Implemented a batch-based calendar synchronization system"
           ],
-          "period": "Apr 2023 – Nov 2023"
+          "period": "Apr 2023 – Nov 2023",
+          "resume": true
         }
       ]
     },
@@ -73,12 +78,14 @@
             "Authentication bypass via improper client certificate validation",
             "GitHub Security Advisory: [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)"
           ],
-          "period": "May 2026"
+          "period": "May 2026",
+          "resume": true
         }
       ]
     },
     {
       "name": "Competitions",
+      "resumeName": "Awards",
       "items": [
         {
           "name": "2026 HackTheon Sejong – Finalist",
@@ -111,19 +118,23 @@
         },
         {
           "name": "47th Air Force ICT Competition (Hacking Defense Division) – 1st Place",
+          "resumeName": "47th Air Force ICT Competition (Hacking Defense Division) – First Place",
           "contents": [
             "Individual",
             "Awarded by the Republic of Korea Air Force Chief of Staff"
           ],
-          "period": "Dec 2025"
+          "period": "Dec 2025",
+          "resume": true
         },
         {
           "name": "WhiteHat 2025 Contest – 1st Place",
+          "resumeName": "WhiteHat 2025 Contest – First Place",
           "contents": [
             "Team: 화잇짜",
             "Awarded by the Minister of National Defense, Republic of Korea"
           ],
-          "period": "Nov 2025"
+          "period": "Nov 2025",
+          "resume": true
         },
         {
           "name": "Financial Security Institute FIESTA 2025 – 13th Place",
@@ -134,11 +145,13 @@
         },
         {
           "name": "Military Startup Contest – Challenge Award",
+          "resumeName": "Military Startup Contest",
           "contents": [
             "Team: ArchiFlow",
             "Awarded by the Director of the Military Outplace Training Institute"
           ],
-          "period": "Sep 2025"
+          "period": "Sep 2025",
+          "resume": true
         },
         {
           "name": "Cyber Conflict Exercise 2025 – 4th Place (Public Sector Division)",
@@ -149,11 +162,13 @@
         },
         {
           "name": "Air Force Startup Contest – Encouragement Award",
+          "resumeName": "Air Force Startup Contest",
           "contents": [
             "Team: ArchiFlow",
             "Awarded by the Republic of Korea Air Force Deputy Chief of Staff for Personnel"
           ],
-          "period": "Jun 2025"
+          "period": "Jun 2025",
+          "resume": true
         },
         {
           "name": "2025 HackTheon Sejong – 26th Place",
@@ -243,12 +258,14 @@
         {
           "name": "Industrial Engineer Information Security",
           "description": "Korea Communications Agency (KCA)",
-          "period": "Dec 2025"
+          "period": "Dec 2025",
+          "resume": true
         },
         {
           "name": "Industrial Engineer Information Processing",
           "description": "Human Resource Development Service of Korea (HRDK)",
-          "period": "Dec 2025"
+          "period": "Dec 2025",
+          "resume": true
         },
         {
           "name": "SQL Developer",
@@ -263,7 +280,8 @@
         {
           "name": "TOPCIT – Level 4 (Score: 688)",
           "description": "Institute of Information & Communications Technology Planning & Evaluation (IITP)",
-          "period": "Oct 2023"
+          "period": "Oct 2023",
+          "resume": true
         }
       ]
     }

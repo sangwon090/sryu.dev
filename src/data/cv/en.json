@@ -23,6 +23,14 @@
       "name": "Experience",
       "items": [
         {
+          "name": "KISA BoB 15th",
+          "contents": [
+            "Track: Vulnerability Research"
+          ],
+          "period": "Jul 2026 – Present",
+          "resume": true
+        },
+        {
           "name": "Republic of Korea Air Force – Cybersecurity Specialist (Sergeant)",
           "contents": [
             "Performed security monitoring and server administration at the CERT",
@@ -32,7 +40,7 @@
           "resume": true
         },
         {
-          "name": "Software Maestro 14th – Trainee",
+          "name": "Software Maestro 14th",
           "contents": [
             "Team: 새싹들(Daehyun Kang, Sangwon Ryu, Suyoung Hwang)",
             "Led backend development across the full lifecycle, from planning to deployment"
@@ -88,11 +96,22 @@
       "resumeName": "Awards",
       "items": [
         {
-          "name": "2026 HackTheon Sejong – Finalist",
+          "name": "DEF CON 2026 CTF – Qualified for Finals",
           "contents": [
-            "Team: 15자 이내로 팀 특성을 잘..."
+            "Team: Jinddabi's",
+            "Advancing to finals in August"
           ],
-          "period": "Jul 2026 (Expected)"
+          "period": "May 2026",
+          "resume": true
+        },
+        {
+          "name": "2026 HackTheon Sejong – Qualified for Finals",
+          "contents": [
+            "Team: 15자 이내로 팀 특성을 잘...",
+            "Advancing to finals in July"
+          ],
+          "period": "Apr 2026",
+          "resume": true
         },
         {
           "name": "2026 INCOGNITO Ideathon: Privacy Protection in the AI Era – Bronze Award",
@@ -128,7 +147,7 @@
         },
         {
           "name": "WhiteHat 2025 Contest – 1st Place",
-          "resumeName": "WhiteHat 2025 Contest – First Place",
+          "resumeName": "WhiteHat 2025 Contest – 1st Place",
           "contents": [
             "Team: 화잇짜",
             "Awarded by the Minister of National Defense, Republic of Korea"

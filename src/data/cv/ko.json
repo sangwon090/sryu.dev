@@ -23,6 +23,14 @@
       "name": "경력",
       "items": [
         {
+          "name": "KISA BoB 15th",
+          "contents": [
+            "트랙: 취약점 분석"
+          ],
+          "period": "2026. 7. – 현재",
+          "resume": true
+        },
+        {
           "name": "대한민국공군 – 정보보호병",
           "contents": [
             "단급 CERT에서 보안 관제 및 서버 관리 업무 수행",
@@ -32,7 +40,7 @@
           "resume": true
         },
         {
-          "name": "소프트웨어 마에스트로 14기 – 연수생",
+          "name": "소프트웨어 마에스트로 14기",
           "contents": [
             "팀: 새싹들(강대현, 유상원, 황수영)",
             "팀에서 백엔드 리드로 서비스 기획부터 설계, 구현, 배포 전 과정에 참여"
@@ -88,9 +96,16 @@
       "resumeName": "수상",
       "items": [
         {
+          "name": "DEF CON 2026 CTF – 본선 진출",
+          "description": "Team: Jinddabi's",
+          "period": "2026. 5.",
+          "resume": true
+        },
+        {
           "name": "2026 핵테온 세종 – 본선 진출",
           "description": "팀: 15자 이내로 팀 특성을 잘",
-          "period": "2026. 7. (예정)"
+          "period": "2026. 4.",
+          "resume": true
         },
         {
           "name": "2026 INCOGNITO 아이디어톤: AI시대의 개인정보보호 – 동상",
@@ -114,7 +129,7 @@
           "resume": true
         },
         {
-          "name": "2025 화이트햇 콘테스트 – 1위",
+          "name": "화이트햇 2025 콘테스트 – 1위",
           "resumeName": "화이트햇 2025 콘테스트 – 1위",
           "description": "팀: 화잇짜, 국방부장관상",
           "period": "2025. 11.",

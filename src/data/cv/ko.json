@@ -81,12 +81,22 @@
       "items": [
         {
           "name": "LizardByte/Sunshine",
-          "inlineDescription": "CVE-2026-32253 · 9.8 Critical",
+          "inlineDescription": "CVE-2026-32253 · 9.8 Critical (v3.1)",
           "contents": [
-            "잘못된 인증서 검증으로 인한 인증 우회 취약점",
+            "잘못된 인증서 검증으로 인한 인증 우회",
             "GitHub Security Advisory: [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)"
           ],
           "period": "2026. 5.",
+          "resume": true
+        },
+        {
+          "name": "containerd",
+          "inlineDescription": "CVE-2026-53489 · 8.2 High (v4.0)",
+          "contents": [
+            "CRI 체크포인트 복원 중 심볼릭 링크 처리로 인한 임의 호스트 파일 읽기",
+            "GitHub Security Advisory: [GHSA-rgh6-rfwx-v388](https://github.com/containerd/containerd/security/advisories/GHSA-rgh6-rfwx-v388)"
+          ],
+          "period": "2026. 6.",
           "resume": true
         }
       ]

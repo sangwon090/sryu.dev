@@ -77,16 +77,26 @@
       ]
     },
     {
-      "name": "Security Advisories",
+      "name": "Vulnerability Disclosure",
       "items": [
         {
           "name": "LizardByte/Sunshine",
-          "inlineDescription": "CVE-2026-32253 · 9.8 Critical",
+          "inlineDescription": "CVE-2026-32253 · 9.8 Critical (v3.1)",
           "contents": [
             "Authentication bypass via improper client certificate validation",
             "GitHub Security Advisory: [GHSA-ph75-mgxh-mv57](https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57)"
           ],
           "period": "May 2026",
+          "resume": true
+        },
+        {
+          "name": "containerd",
+          "inlineDescription": "CVE-2026-53489 · 8.2 High (v4.0)",
+          "contents": [
+            "Arbitrary host file read via symlink following in CRI checkpoint restore",
+            "GitHub Security Advisory: [GHSA-rgh6-rfwx-v388](https://github.com/containerd/containerd/security/advisories/GHSA-rgh6-rfwx-v388)"
+          ],
+          "period": "Jun 2026",
           "resume": true
         }
       ]

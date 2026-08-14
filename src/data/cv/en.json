@@ -115,9 +115,10 @@
           "resume": true
         },
         {
-          "name": "2026 HackTheon Sejong (Beginner Division) – 5th Place, Merit Prize",
+          "name": "2026 HackTheon Sejong – 5th Place, Excellence Award (Beginner Division)",
           "contents": [
-            "Team: 15자 이내로 팀 특성을 잘"
+            "Team: 15자 이내로 팀 특성을 잘",
+            "Awarded by the President of the Science and Technology Policy Institute (STEPI), Republic of Korea"
           ],
           "period": "Jul 2026",
           "resume": true
@@ -146,7 +147,6 @@
         },
         {
           "name": "47th Air Force ICT Competition (Hacking Defense Division) – 1st Place",
-          "resumeName": "47th Air Force ICT Competition (Hacking Defense Division) – First Place",
           "contents": [
             "Individual",
             "Awarded by the Republic of Korea Air Force Chief of Staff"
@@ -155,8 +155,7 @@
           "resume": true
         },
         {
-          "name": "WhiteHat 2025 Contest – 1st Place",
-          "resumeName": "WhiteHat 2025 Contest – 1st Place",
+          "name": "WhiteHat 2025 Contest – 1st Place (Enlisted Division)",
           "contents": [
             "Team: 화잇짜",
             "Awarded by the Minister of National Defense, Republic of Korea"
@@ -172,7 +171,7 @@
           "period": "Sep 2025"
         },
         {
-          "name": "Military Startup Contest – Challenge Award",
+          "name": "Military Startup Contest – Merit Award",
           "resumeName": "Military Startup Contest",
           "contents": [
             "Team: ArchiFlow",
@@ -189,7 +188,7 @@
           "period": "Sep 2025"
         },
         {
-          "name": "Air Force Startup Contest – Encouragement Award",
+          "name": "Air Force Startup Contest – Merit Award",
           "resumeName": "Air Force Startup Contest",
           "contents": [
             "Team: ArchiFlow",
@@ -206,7 +205,7 @@
           "period": "Apr 2025"
         },
         {
-          "name": "WhiteHat 2024 Contest – 4th Place",
+          "name": "WhiteHat 2024 Contest – 4th Place (Enlisted Division)",
           "contents": [
             "Team: 이곳이네집이다"
           ],
@@ -241,10 +240,9 @@
           "period": "May 2023"
         },
         {
-          "name": "2022 INCOGNITO CTF – 8th Place",
+          "name": "2022 INCOGNITO CTF – 8th Place, Merit Award",
           "contents": [
-            "Individual",
-            "Encouragement Award"
+            "Individual"
           ],
           "period": "Apr 2023"
         },

@@ -106,6 +106,15 @@
       "resumeName": "Awards",
       "items": [
         {
+          "name": "2026 KISIA CTF – 3rd Place",
+          "contents": [
+            "Team: realsungsFanclub",
+            "Awarded by the President of KISIA (Korea Information Security Industry Association)"
+          ],
+          "period": "Aug 2026",
+          "resume": true
+        },
+        {
           "name": "DEF CON 34 CTF Finals – 7th Place",
           "contents": [
             "Team: Jinddabi's",

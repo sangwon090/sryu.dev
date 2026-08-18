@@ -106,6 +106,12 @@
       "resumeName": "수상",
       "items": [
         {
+          "name": "2026 KISIA CTF – 3위, 한국정보보호산업협회장상",
+          "description": "팀: realsungsFanclub",
+          "period": "2026. 8.",
+          "resume": true
+        },
+        {
           "name": "DEF CON 34 CTF 본선 – 7위",
           "description": "팀: Jinddabi's",
           "period": "2026. 8.",

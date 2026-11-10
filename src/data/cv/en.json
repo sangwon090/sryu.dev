@@ -25,7 +25,8 @@
         {
           "name": "KISA BoB 15th",
           "contents": [
-            "Track: Vulnerability Research"
+            "Track: Vulnerability Research",
+            "Conducting macOS vulnerability research as part of Team PAC"
           ],
           "period": "Jul 2026 – Present",
           "resume": true
